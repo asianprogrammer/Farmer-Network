@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/inter.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --radius: .5rem;
+}
+
+.dark {
+  --gray: rgb(156 163 175 / 1);
+  --background: #111827;
+  --text: #FFFFFF;
+  --primary: #3B82F6;
+  --hover: #374151;
+  --layout: #1F2937;
+  --lighterGray: rgb(55 65 81);
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--background);
+}
+
+#root {
+  margin-top: 4rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.F-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.FY-center {
+  align-items: center
+}
+
+.MB-1rem {
+  margin-bottom: 1rem;
+}
