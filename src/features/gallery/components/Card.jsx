@@ -53,7 +53,6 @@ function Card({
         {video && (
           <video
             className="media-thumb clickable"
-            controls
             onClick={handleMediaClick}
             onKeyDown={handleMediaKey}
             tabIndex={0}
