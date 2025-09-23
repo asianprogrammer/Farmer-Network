@@ -22,9 +22,9 @@
     filter: invert(1);
 }
 
-input {
-    background-color: rgb(55 65 81);
+.searchComponent input {
     color: #fff;
+    background-color: rgb(55 65 81);
     padding: 0.5rem 1rem 0.5rem 2.5rem;
     border-radius: 9999px;
     font-size: 0.875rem;
