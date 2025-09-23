@@ -1,5 +1,5 @@
 import '@/assets/styles/createPost.css';
-import ImageIcon from '@/assets/IconComponents/Image';
+import ImageIcon from '@/assets/IconComponents/Image.jsx';
 
 function CreatePost({ user, profile, onTextClick, onPhotoVideoClick, onFellingClick }) {
     return (
