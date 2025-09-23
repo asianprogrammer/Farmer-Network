@@ -57,6 +57,42 @@ export default function Gallery() {
       comments: 0,
       shares: 0,
     },
+    ,
+    {
+      id: 4,
+      type: "image",
+      img: "https://picsum.photos/800/600",
+      title: "Forest Path",
+      username: "dave",
+      date: "2024-04-15T15:45:00",
+      likes: 2,
+      comments: 0,
+      shares: 0,
+    },
+    ,
+    {
+      id: 4,
+      type: "image",
+      img: "https://picsum.photos/800/600",
+      title: "Forest Path",
+      username: "dave",
+      date: "2024-04-15T15:45:00",
+      likes: 2,
+      comments: 0,
+      shares: 0,
+    },
+    ,
+    {
+      id: 4,
+      type: "image",
+      img: "https://picsum.photos/800/600",
+      title: "Forest Path",
+      username: "dave",
+      date: "2024-04-15T15:45:00",
+      likes: 2,
+      comments: 0,
+      shares: 0,
+    }
   ];
 
   const [filterType, setFilterType] = useState("all");
@@ -110,7 +146,7 @@ export default function Gallery() {
     <>
       <Filter counts={counts} onFilterChange={setFilterType} />
 
-      <div className="flex FY-center cards">
+      <div className="cards">
         {filtered.map((it, idx) => (
           <Card key={it.id || idx} {...it} onOpen={() => openLightbox(idx)} />
         ))}
