@@ -4,7 +4,7 @@ import Lightbox from "yet-another-react-lightbox";
 import Video from "yet-another-react-lightbox/plugins/video";
 import "yet-another-react-lightbox/styles.css";
 
-import "@/assets/styles/gallery.css";
+import "@/assets/styles/Gallery.css";
 import "@/assets/styles/LightBoxCustom.css";
 import { useState, useMemo, useCallback } from "react";
 

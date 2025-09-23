@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '@/assets/styles/filter.css';
+import '@/assets/styles/Filter.css';
 
 export default function Filter({ onFilterChange, onViewChange, counts = { all: 0, images: 0, videos: 0 } }) {
   const [activeFilter, setActiveFilter] = useState('all');
