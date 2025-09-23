@@ -1,8 +1,7 @@
 import FollowerSuggest from '@/components/layout/FollowerSuggest';
 import CreatePost from '@/components/layout/CreatePost';
 import profile from '@/assets/images/logo.png';
-import '@/assets/styles/home.css';
-
+import '@/assets/styles/Home.css';
 
 export default function Home() {
     return (<>
