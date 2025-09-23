@@ -11,6 +11,7 @@ function Card({
   likes,
   comments,
   shares,
+  onAuthorClick,
 }) {
   return (
     <div className="card">
@@ -27,7 +28,7 @@ function Card({
       <section className="card-details">
         <div className="title">{title}</div>
         <span>
-          by {username} .{" "}
+          by <button className="author-btn" onClick={() => onAuthorClick && onAuthorClick(username)}>{username}</button> .{" "}
           {(() => {
             // Defensive date parsing to avoid passing Invalid Date to the formatter
             if (!date) return "just now";
