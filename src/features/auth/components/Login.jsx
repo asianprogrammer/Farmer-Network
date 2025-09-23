@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EyeIcon from '@/assets/IconComponents/Eye';
 import EyeOffIcon from '@/assets/IconComponents/EyeOff';
+import { NavLink } from "react-router-dom";
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -86,6 +87,11 @@ export default function Login() {
       <button type="submit" className="submit" disabled={isSubmitting}>
         {isSubmitting ? (<> <div className="spinner"></div> লগইন হচ্ছে... </>) : ("লগইন করুন")}
       </button>
+
+      <section className="text-center">
+        আপনি কি নিবন্ধন করেন নি?&nbsp;
+        <NavLink to="register" className="nav-link">নিবন্ধন করুন</NavLink>
+      </section>
 
       {status && (
         <div>

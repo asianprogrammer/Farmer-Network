@@ -118,6 +118,15 @@
   margin-top: 0.75rem;
 }
 
+.auth-page .text-center {
+  margin-top: 1.5rem;
+  color: #5e6066;
+}
+
+.auth-page .text-center a {
+  color: red;
+}
+
 .spinner {
   width: 18px;
   height: 18px;
