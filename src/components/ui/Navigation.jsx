@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import bookIcon from '@/assets/icons/book.svg';
-import homeIcon from '@/assets/icons/home.svg';
-import imageIcon from '@/assets/icons/image.svg';
-import followersIcon from '@/assets/icons/followers.svg';
-import notificationIcon from '@/assets/icons/notification.svg';
+import bookIcon from '@/assets/icons/Book.svg';
+import homeIcon from '@/assets/icons/Home.svg';
+import imageIcon from '@/assets/icons/Image.svg';
+import followersIcon from '@/assets/icons/Followers.svg';
+import notificationIcon from '@/assets/icons/Notification.svg';
 
 const iconStyle = { width: 20, height: 20, display: 'inline-block', verticalAlign: 'middle' };
 

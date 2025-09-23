@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import searchIcon from '@/assets/icons/search.svg';
+import searchIcon from '@/assets/icons/Search.svg';
 import '@/assets/styles/Search.css';
 
 function Search({ placeholder = 'Search...', onSearch, delay = 400 }) {
