@@ -1,13 +1,15 @@
 import { useState } from "react";
+import EyeIcon from '@/assets/IconComponents/Eye';
+import EyeOffIcon from '@/assets/IconComponents/EyeOff';
 
 export default function Login() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [status, setStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   function validate() {
-    // Generic validation: both fields required + password length
     if (!formData.username.trim() || !formData.password.trim()) return false;
     if (formData.password.length < 8) return false;
     return true;
@@ -22,7 +24,7 @@ export default function Login() {
       return;
     }
 
-    setIsSubmitting(true); // disable button
+    setIsSubmitting(true);
     const payload = {
       username: formData.username,
       password: formData.password,
@@ -31,10 +33,8 @@ export default function Login() {
 
     console.log("Processing login...", payload);
 
-    // Simulate server processing delay (e.g., 2 seconds)
     await new Promise((res) => setTimeout(res, 2000));
 
-    // Return JSON
     setStatus(payload);
     setIsSubmitting(false);
   }
@@ -58,7 +58,7 @@ export default function Login() {
       <div>
         <div className="wrapper">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // Toggle type
             value={formData.password}
             placeholder="পাসওয়ার্ড"
             onChange={(e) =>
@@ -66,8 +66,13 @@ export default function Login() {
             }
             disabled={isSubmitting}
           />
-          <button type="button" className="showHide">
-            Show
+          <button
+            type="button"
+            className="showHide"
+            onClick={() => setShowPassword((prev) => !prev)}
+            tabIndex={-1}
+          >
+            {showPassword ? <EyeIcon width={20} /> : <EyeOffIcon width={20} />}
           </button>
         </div>
       </div>
@@ -81,7 +86,7 @@ export default function Login() {
       <button type="submit" className="submit" disabled={isSubmitting}>
         {isSubmitting ? (
           <>
-            <div class="spinner"></div> লগইন হচ্ছে...
+            <div className="spinner"></div> লগইন হচ্ছে...
           </>
         ) : (
           "লগইন করুন"
