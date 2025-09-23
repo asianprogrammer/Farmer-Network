@@ -1,5 +1,6 @@
 import { format as timeagoFormat } from 'timeago.js';
 import '@/assets/styles/CardGallery.css';
+import { useCallback } from 'react';
 
 function formatDate(date) {
   if (!date) return 'just now';
@@ -7,18 +8,30 @@ function formatDate(date) {
   return parsed instanceof Date && !isNaN(parsed.getTime()) ? timeagoFormat(parsed) : 'just now';
 }
 
-function Card({ img, video, type, title, username, date, likes = 0, comments = 0, shares = 0, onAuthorClick, onOpen }) {
-  const handleMediaClick = (e) => {
+function Card({
+  img,
+  video,
+  type,
+  title,
+  username,
+  date,
+  likes = 0,
+  comments = 0,
+  shares = 0,
+  onAuthorClick,
+  onOpen,
+}) {
+  const handleMediaClick = useCallback((e) => {
     e.preventDefault();
-    if (onOpen) onOpen();
-  };
+    onOpen?.();
+  }, [onOpen]);
 
-  const handleMediaKey = (e) => {
+  const handleMediaKey = useCallback((e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      if (onOpen) onOpen();
+      onOpen?.();
     }
-  };
+  }, [onOpen]);
 
   return (
     <article className="card">
@@ -60,7 +73,7 @@ function Card({ img, video, type, title, username, date, likes = 0, comments = 0
         <div className="meta">
           <span className="by">
             by{' '}
-            <button className="author-btn" onClick={() => onAuthorClick && onAuthorClick(username)}>
+            <button type="button" className="author-btn" onClick={() => onAuthorClick && onAuthorClick(username)}>
               {username}
             </button>
             {' · '}
@@ -69,13 +82,13 @@ function Card({ img, video, type, title, username, date, likes = 0, comments = 0
         </div>
 
         <div className="actions">
-          <button className="action" aria-label="like">
+          <button type="button" className="action" aria-label="like">
             ❤️ <span>{likes}</span>
           </button>
-          <button className="action" aria-label="comments">
+          <button type="button" className="action" aria-label="comments">
             💬 <span>{comments}</span>
           </button>
-          <button className="action" aria-label="share">
+          <button type="button" className="action" aria-label="share">
             🔗 <span>{shares}</span>
           </button>
         </div>
