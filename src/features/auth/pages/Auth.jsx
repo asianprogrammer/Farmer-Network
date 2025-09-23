@@ -12,7 +12,7 @@ export default function Auth() {
 
   return (
     <div className="auth-page">
-      <h1>Authentication Page</h1>
+      <h1>কৃষক এরিয়া</h1>
       {isLogin ? <Login /> : <Register />}
     </div>
   );
