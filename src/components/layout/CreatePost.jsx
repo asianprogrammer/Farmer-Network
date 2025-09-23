@@ -1,5 +1,5 @@
 import '@/assets/styles/createPost.css';
-// import ImageIcon from '@/assets/iconComponents/Image.jsx';
+import ImageIcon from '@/assets/iconComponents/Image.jsx';
 
 function CreatePost({ user, profile, onTextClick, onPhotoVideoClick, onFellingClick }) {
     return (
@@ -17,7 +17,7 @@ function CreatePost({ user, profile, onTextClick, onPhotoVideoClick, onFellingCl
 
             <section className="flex FY-center MB-1rem">
                 <div className="flex F-center flex FY-center mediaPostOptions" onClick={onPhotoVideoClick}>
-                    {/* <ImageIcon stroke='#4ade80' />  */}
+                    <ImageIcon stroke='#4ade80' /> 
                     <span>Photo/Video</span>
                 </div>
 

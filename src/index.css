@@ -41,6 +41,10 @@ body {
   align-items: center
 }
 
+.F-space {
+  justify-content: space-between;
+}
+
 .MB-1rem {
   margin-bottom: 1rem;
 }
