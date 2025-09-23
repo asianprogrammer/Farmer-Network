@@ -1,9 +1,11 @@
 import { useState } from "react";
+import "@/assets/styles/Home.css";
+
 import FollowerSuggest from "@/components/layout/FollowerSuggest";
 import CreatePost from "@/components/layout/CreatePost";
 import profile from "@/assets/images/logo.png";
 import ModelView from "@/components/layout/ModelView";
-import "@/assets/styles/Home.css";
+import Post from "@/components/layout/Post";
 
 export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,7 +47,20 @@ export default function Home() {
             <section className="fake-like">Like by Don</section>
           </ModelView>
         )}
-        
+
+        <Post
+          postId={101}
+          username="john_doe"
+          profile="https://picsum.photos/400/300"
+          time="2025-09-21T14:00:00Z" // can also pass new Date() or timestamp
+          content="Check out this view!"
+          image="https://picsum.photos/500/400"
+          likes={8}
+          comments={2}
+          onLikeClick={(id) => console.log("Liked post", id)}
+          onLikesView={(id) => console.log("View likes for", id)}
+          onCommentsView={(id) => console.log("View comments for", id)}
+        />
       </section>
     </>
   );
