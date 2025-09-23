@@ -4,7 +4,7 @@ import EyeOffIcon from '@/assets/IconComponents/EyeOff';
 import { NavLink } from "react-router-dom";
 
 export default function Login() {
-  const [formData, setFormData] = useState({ username: "", password: "" });
+   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [status, setStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -90,10 +90,10 @@ export default function Login() {
 
       <section className="text-center">
         আপনি কি নিবন্ধন করেন নি?&nbsp;
-        <NavLink to="register" className="nav-link">নিবন্ধন করুন</NavLink>
+        <NavLink to="/auth/signup" className="nav-link">নিবন্ধন করুন</NavLink>
       </section>
 
-      {status && (
+      {status && (  
         <div>
           <h4>Returned JSON:</h4>
           <pre>{JSON.stringify(status, null, 2)}</pre>

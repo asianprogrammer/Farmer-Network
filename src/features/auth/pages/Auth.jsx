@@ -1,13 +1,19 @@
-import Login from '../components/Login';
-import '@/assets/styles/auth.css';
+import { useLocation } from "react-router-dom";
+import Login from "../components/Login";
+import Register from "../components/Signup";
+import "@/assets/styles/Auth.css";
 
-function Auth() {
+export default function Auth() {
+  const location = useLocation();
+  const path = location.pathname.toLowerCase();
+
+  // decide which form to render
+  const isLogin = path.endsWith("/login");
+
   return (
     <div className="auth-page">
       <h1>Authentication Page</h1>
-      <Login />
+      {isLogin ? <Login /> : <Register />}
     </div>
   );
 }
-
-export default Auth;
