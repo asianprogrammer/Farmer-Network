@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { format } from "timeago.js";   // <-- import formatter
+import "@/assets/styles/Post.css";
 
 /**
  * Post component

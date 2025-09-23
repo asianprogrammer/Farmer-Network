@@ -1,8 +1,12 @@
 .feed-area {
-    margin-left: 20rem;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 1.5rem;
+}
+
+.feed {
+    width: 100%;
+    max-width: 670px;
 }

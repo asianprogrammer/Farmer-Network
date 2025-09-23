@@ -44,7 +44,7 @@ export default function InfiniteFeed() {
   }, [page]);
 
   return (
-    <div className="feed-area">
+    <div className="feed">
       {posts.map((p) => (
         <Post
           key={p.postId}
