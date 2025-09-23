@@ -43,7 +43,7 @@ export default function Login() {
     <form onSubmit={handleSubmit} noValidate className="login">
       <div className="title">লগইন করুন</div>
 
-      <div>
+      <div className="gap">
         <input
           type="text"
           value={formData.username}
@@ -55,7 +55,7 @@ export default function Login() {
         />
       </div>
 
-      <div>
+      <div className="gap">
         <div className="wrapper">
           <input
             type={showPassword ? "text" : "password"} // Toggle type
@@ -84,13 +84,7 @@ export default function Login() {
       )}
 
       <button type="submit" className="submit" disabled={isSubmitting}>
-        {isSubmitting ? (
-          <>
-            <div className="spinner"></div> লগইন হচ্ছে...
-          </>
-        ) : (
-          "লগইন করুন"
-        )}
+        {isSubmitting ? (<> <div className="spinner"></div> লগইন হচ্ছে... </>) : ("লগইন করুন")}
       </button>
 
       {status && (
