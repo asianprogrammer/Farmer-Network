@@ -44,7 +44,7 @@ export default function Home() {
 
       {modalVisible && (
         <Posting
-          user={{ username: "Parvez", profile: "https://example.com/profile.jpg" }}
+          user={{ username: "Jon Don", profile: "https://example.com/profile.jpg" }}
           onPost={handlePostSubmit}
           onClose={closeModal}
         />
