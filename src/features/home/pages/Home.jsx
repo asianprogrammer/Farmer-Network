@@ -21,8 +21,10 @@ export default function Home() {
   };
 
   return (
-    <>
+    <section className="flex FY-center">
       <FollowerSuggest />
+      {/* Fake follow suggest space */}
+      <section className="fake-follow-section"></section>
 
       <section className="feed-area">
         <CreatePost
@@ -33,27 +35,9 @@ export default function Home() {
           onFellingClick={() => alert("Feelings/Activity Clicked")}
         />
 
-        {/* For seeing likes dynamic */}
-        {modalVisible && (
-          <ModelView
-            title="Liked by"
-            onClose={() => setModalVisible(false)}
-          ></ModelView>
-        )}
-
-        {/* For seeing comments dynamic */}
-        {commentView && (
-          <ModelView title="Comments" onClose={() => setCommentView(false)}>
-            <section className="fake-like">Like by Jon</section>
-            <section className="fake-like">Like by Don</section>
-          </ModelView>
-        )}
-
-
         <InfiniteFeed />
-
-        
       </section>
-    </>
+
+    </section>
   );
 }

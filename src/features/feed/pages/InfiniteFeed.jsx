@@ -103,10 +103,15 @@ export default function InfiniteFeed() {
       {modalOpen && (
         <ModelView
           title={modalTitle}
-          onClose={() => setModalOpen(false)}
-        >
-          {modalContent}
-        </ModelView>
+          onClose={() => setModalOpen(false)}></ModelView>
+      )}
+
+      {modalOpen && (
+        <ModelView
+          title={modalTitle}
+          onClose={() => setModalOpen(false)}>
+            <h1>Hello World</h1>
+          </ModelView>
       )}
     </div>
   );
