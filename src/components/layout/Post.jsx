@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { format } from "timeago.js";
 
@@ -26,23 +26,42 @@ export default function Post({
   time,
   content = "",
   media = [],
-  likes = 0,
+  likes: initialLikes = 0, // Renamed to initialLikes
   comments = 0,
-  onLikeClick = () => {},
+  onLikeClick: onParentLikeClick = () => {}, // Renamed for clarity
   onLikesView = () => {},
   onCommentsView = () => {},
-  isLiked = false, // Added the isLiked prop here
+  isLiked: initialIsLiked = false, // Renamed to initialIsLiked
 }) {
-  const formattedTime = time ? format(new Date(time)) : "just now";
-  const [openIndex, setOpenIndex] = useState(-1); // -1 = closed
+  const [isLiked, setIsLiked] = useState(initialIsLiked);
+  const [likes, setLikes] = useState(initialLikes);
+  const [openIndex, setOpenIndex] = useState(-1);
 
-  // Convert media URLs into Lightbox slides
-  const slides = media.map((url) => {
-    const isVideo = /\.(mp4|webm|ogg)$/i.test(url);
-    return isVideo
-      ? { type: "video", sources: [{ src: url, type: "video/mp4" }] }
-      : { src: url };
-  });
+  const formattedTime = useMemo(
+    () => (time ? format(new Date(time)) : "just now"),
+    [time]
+  );
+
+  const slides = useMemo(
+    () =>
+      media.map((url) => {
+        const isVideo = /\.(mp4|webm|ogg)$/i.test(url);
+        return isVideo
+          ? { type: "video", sources: [{ src: url, type: "video/mp4" }] }
+          : { src: url };
+      }),
+    [media]
+  );
+
+  const handleLikeToggle = () => {
+    // Optimistic UI Update
+    const newIsLiked = !isLiked;
+    setIsLiked(newIsLiked);
+    setLikes((prevLikes) => (newIsLiked ? prevLikes + 1 : prevLikes - 1));
+
+    // Notify parent component about the change and pass the new status
+    onParentLikeClick(postId, newIsLiked);
+  };
 
   return (
     <article className="post">
@@ -86,7 +105,6 @@ export default function Post({
                   onClick={() => setOpenIndex(index)}
                 >
                   {isVideo ? (
-                    // show muted thumbnail video (pointer-events-none so click goes to container)
                     <video
                       src={url}
                       muted
@@ -94,10 +112,7 @@ export default function Post({
                       className="media-video"
                     />
                   ) : (
-                    <img
-                      src={url}
-                      alt={`media-${index}`}
-                    />
+                    <img src={url} alt={`media-${index}`} />
                   )}
                 </div>
               );
@@ -109,8 +124,8 @@ export default function Post({
         <footer className="interactions flex gap-4 mt-3">
           <button
             type="button"
-            onClick={() => onLikeClick(postId)}
-            className={`like-btn flex F-center ${isLiked ? 'liked' : ''}`}
+            onClick={handleLikeToggle}
+            className={`like-btn flex F-center ${isLiked ? "liked" : ""}`}
           >
             <HeartIcon /> <span>Like</span>
             {likes > 0 && (
