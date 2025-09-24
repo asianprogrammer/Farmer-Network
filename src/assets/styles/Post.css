@@ -1,7 +1,7 @@
 .post {
     width: 100%;
     overflow: hidden;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     background: var(--layout);
     border: solid 1px #37415180;
     border-radius: calc(var(--radius) + 2px);
@@ -138,4 +138,9 @@
 
 .interactions .like-btn.liked .likes-count:hover {
     text-decoration-color: #fdf4f4;
+}
+
+.interactions .comment-btn:hover {
+    color: #60A5FA;
+    background: #60a5fa2c;
 }
