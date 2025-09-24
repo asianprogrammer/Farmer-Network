@@ -17,7 +17,7 @@ import MoreIcon from "@/assets/IconComponents/More";
 /**
  * Post component
  *
- * @param {Array<string>} props.media  Array of URLs (images or videos)
+ * @param {Array<string>} props.media  Array of URLs (images or videos)
  */
 export default function Post({
   postId,
@@ -31,6 +31,7 @@ export default function Post({
   onLikeClick = () => {},
   onLikesView = () => {},
   onCommentsView = () => {},
+  isLiked = false, // Added the isLiked prop here
 }) {
   const formattedTime = time ? format(new Date(time)) : "just now";
   const [openIndex, setOpenIndex] = useState(-1); // -1 = closed
@@ -52,12 +53,12 @@ export default function Post({
             <img
               src={profile}
               alt={`${username}'s profile`}
-              className="w-full h-full object-cover"
+              className="object-cover"
             />
           </div>
           <div className="info">
-            <div className="name font-semibold">{username}</div>
-            <div className="time text-sm text-gray-500">{formattedTime}</div>
+            <div className="name">{username}</div>
+            <div className="time">{formattedTime}</div>
           </div>
         </NavLink>
 
@@ -68,14 +69,14 @@ export default function Post({
 
       <section className="post-main">
         {content && (
-          <div className="content my-2">
+          <div className="content">
             <p>{content}</p>
           </div>
         )}
 
         {/* Thumbnails (click opens lightbox) */}
         {media.length > 0 && (
-          <div className="media-content flex FY-center flex-wrap gap-2 my-2">
+          <div className="media-content flex FY-center">
             {media.map((url, index) => {
               const isVideo = /\.(mp4|webm|ogg)$/i.test(url);
               return (
@@ -87,16 +88,15 @@ export default function Post({
                   {isVideo ? (
                     // show muted thumbnail video (pointer-events-none so click goes to container)
                     <video
-                      className="w-full rounded-md pointer-events-none"
                       src={url}
                       muted
                       preload="metadata"
+                      className="media-video"
                     />
                   ) : (
                     <img
                       src={url}
                       alt={`media-${index}`}
-                      className="w-full rounded-md object-cover pointer-events-none"
                     />
                   )}
                 </div>
@@ -110,9 +110,9 @@ export default function Post({
           <button
             type="button"
             onClick={() => onLikeClick(postId)}
-            className="like-btn flex F-center"
+            className={`like-btn flex F-center ${isLiked ? 'liked' : ''}`}
           >
-            <HeartIcon stroke="#9AA1AD" /> &nbsp; <span>Like</span>
+            <HeartIcon /> <span>Like</span>
             {likes > 0 && (
               <span
                 className="likes-count"
@@ -131,7 +131,7 @@ export default function Post({
             onClick={() => onCommentsView(postId)}
             className="comment-btn flex F-center"
           >
-            <CommentIcon /> &nbsp; <span>Comment</span>
+            <CommentIcon /> <span>Comment</span>
             {comments > 0 && (
               <span
                 className="comments-count"
@@ -155,8 +155,8 @@ export default function Post({
         slides={slides}
         plugins={[Video, Zoom]}
         zoom={{
-          maxZoomPixelRatio: 4, // how far user can zoom (4×)
-          wheelZoomDistanceFactor: 100, // tweak sensitivity
+          maxZoomPixelRatio: 4,
+          wheelZoomDistanceFactor: 100,
         }}
       />
     </article>

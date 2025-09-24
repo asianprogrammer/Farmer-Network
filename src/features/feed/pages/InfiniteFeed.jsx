@@ -16,6 +16,7 @@ function generatePosts(start, count) {
     return {
       postId: id,
       username: `user_${id}`,
+      isLiked: Math.round(Math.random() * 1),
       profile: `https://picsum.photos/seed/p${id}/100/100`,
       time: new Date(Date.now() - id * 60_000).toISOString(), // staggered times
       content: `This is post number ${id}`,

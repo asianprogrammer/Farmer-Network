@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HeartIcon = ({ stroke = 'currentColor', fill = 'none', size = 24 }) => (
+const HeartIcon = ({ stroke = 'currentColor', fill = 'currentColor', size = 24 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

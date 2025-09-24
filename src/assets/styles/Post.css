@@ -25,20 +25,16 @@
     padding-bottom: 1rem;
 }
 
-.post-header a {
-    gap: 1rem;
-}
-
-.post .info .name  {
+.post .info .name {
     color: var(--text);
+    font-weight: 600;
 }
 
-.post .info .time  {
+.post .info .time {
     color: var(--gray);
 }
 
 .post-main {
-    padding-top: none;
     padding: 1.5rem;
 }
 
@@ -47,17 +43,77 @@
     color: var(--text);
 }
 
-.post-main .media {
+.media-content {
+    display: flex;
+    gap: 0.5rem;
     width: 100%;
-    height: auto;
+    margin-bottom: 1rem;
+}
+
+.media-item {
+    width: 100%;
+    cursor: pointer;
     overflow: hidden;
-    max-height: 400px;
+    min-height: 192px;
     border-radius: calc(var(--radius) + 2px);
 }
 
-.post-main .media img,
-.post-main .media video {
-    width: 100%;
+.media-item img,
+.media-item video {
+    width: auto;
     height: 100%;
+    min-height: 192px;
     object-fit: cover;
+}
+
+.interactions {
+    gap: .5rem;
+}
+
+.interactions button {
+    gap: .5rem;
+    color: var(--gray);
+    padding: .5rem 1rem;
+    border-radius: 25px;
+    font-size: .875rem;
+}
+
+.interactions button svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+}
+
+.interactions .like-btn.liked,
+.interactions .like-btn.liked svg {
+    color: #EF4444;
+    fill: #EF4444;
+}
+
+.interactions .like-btn.liked {
+    background: #2E2531;
+}
+
+.interactions .like-btn.liked:hover,
+.interactions .like-btn.liked:hover svg {
+    color: #fdf4f4;
+    fill: #fdf4f4;
+}
+
+.interactions .like-btn:hover {
+    background: #EF44441A;
+}
+
+.interactions .like-btn:hover {
+    color: #F87171;
+}
+
+.interactions .likes-count:hover {
+    text-decoration: underline;
+    text-decoration-color: #F87171;
+    text-decoration-thickness: 1px;
+}
+
+.interactions .like-btn.liked .likes-count:hover {
+    text-decoration-color: #fdf4f4;
 }
