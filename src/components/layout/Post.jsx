@@ -1,13 +1,23 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { format } from "timeago.js"; // <-- import formatter
+import { format } from "timeago.js";
+
+import Lightbox from "yet-another-react-lightbox";
+import Video from "yet-another-react-lightbox/plugins/video";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+
 import "@/assets/styles/Post.css";
+import "@/assets/styles/ZoomInOutOff.css";
+
+import HeartIcon from "@/assets/IconComponents/Love";
+import CommentIcon from "@/assets/IconComponents/Comment";
+import MoreIcon from "@/assets/IconComponents/More";
 
 /**
  * Post component
  *
- * @param {object} props
- * @param {string|number|Date} props.time  A Date object, timestamp, or date string
- * ...other props remain the same
+ * @param {Array<string>} props.media  Array of URLs (images or videos)
  */
 export default function Post({
   postId,
@@ -15,16 +25,23 @@ export default function Post({
   profile,
   time,
   content = "",
-  image,
-  video,
+  media = [],
   likes = 0,
   comments = 0,
   onLikeClick = () => {},
   onLikesView = () => {},
   onCommentsView = () => {},
 }) {
-  // Convert time to a Date, then format with timeago.js
   const formattedTime = time ? format(new Date(time)) : "just now";
+  const [openIndex, setOpenIndex] = useState(-1); // -1 = closed
+
+  // Convert media URLs into Lightbox slides
+  const slides = media.map((url) => {
+    const isVideo = /\.(mp4|webm|ogg)$/i.test(url);
+    return isVideo
+      ? { type: "video", sources: [{ src: url, type: "video/mp4" }] }
+      : { src: url };
+  });
 
   return (
     <article className="post">
@@ -43,29 +60,48 @@ export default function Post({
             <div className="time text-sm text-gray-500">{formattedTime}</div>
           </div>
         </NavLink>
-        <div className="options">…</div>
+
+        <div className="options">
+          <MoreIcon />
+        </div>
       </header>
 
       <section className="post-main">
-        {/* Content */}
         {content && (
           <div className="content my-2">
             <p>{content}</p>
           </div>
         )}
 
-        {image && (
-          <div className="media my-2">
-            <img src={image} alt="Post content" className="rounded-md w-full" />
-          </div>
-        )}
-
-        {video && (
-          <div className="media my-2">
-            <video controls className="w-full rounded-md">
-              <source src={video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+        {/* Thumbnails (click opens lightbox) */}
+        {media.length > 0 && (
+          <div className="media-content flex FY-center flex-wrap gap-2 my-2">
+            {media.map((url, index) => {
+              const isVideo = /\.(mp4|webm|ogg)$/i.test(url);
+              return (
+                <div
+                  key={index}
+                  className="media-item cursor-pointer"
+                  onClick={() => setOpenIndex(index)}
+                >
+                  {isVideo ? (
+                    // show muted thumbnail video (pointer-events-none so click goes to container)
+                    <video
+                      className="w-full rounded-md pointer-events-none"
+                      src={url}
+                      muted
+                      preload="metadata"
+                    />
+                  ) : (
+                    <img
+                      src={url}
+                      alt={`media-${index}`}
+                      className="w-full rounded-md object-cover pointer-events-none"
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -74,30 +110,55 @@ export default function Post({
           <button
             type="button"
             onClick={() => onLikeClick(postId)}
-            className="like-btn flex items-center gap-1"
+            className="like-btn flex F-center"
           >
-            Like
-            <span
-              className="likes-count cursor-pointer text-blue-600"
-              onClick={(e) => {
-                e.stopPropagation();
-                onLikesView(postId);
-              }}
-            >
-              ({likes})
-            </span>
+            <HeartIcon stroke="#9AA1AD" /> &nbsp; <span>Like</span>
+            {likes > 0 && (
+              <span
+                className="likes-count"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onLikesView(postId);
+                }}
+              >
+                ({likes})
+              </span>
+            )}
           </button>
 
           <button
             type="button"
             onClick={() => onCommentsView(postId)}
-            className="comment-btn flex items-center gap-1"
+            className="comment-btn flex F-center"
           >
-            Comment
-            <span className="comments-count">({comments})</span>
+            <CommentIcon /> &nbsp; <span>Comment</span>
+            {comments > 0 && (
+              <span
+                className="comments-count"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCommentsView(postId);
+                }}
+              >
+                ({comments})
+              </span>
+            )}
           </button>
         </footer>
       </section>
+
+      {/* Lightbox: only uses slides from this post */}
+      <Lightbox
+        open={openIndex >= 0}
+        index={openIndex}
+        close={() => setOpenIndex(-1)}
+        slides={slides}
+        plugins={[Video, Zoom]}
+        zoom={{
+          maxZoomPixelRatio: 4, // how far user can zoom (4×)
+          wheelZoomDistanceFactor: 100, // tweak sensitivity
+        }}
+      />
     </article>
   );
 }
