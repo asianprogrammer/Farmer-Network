@@ -1,8 +1,10 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Header from '@/components/layout/Header.jsx';
-import Home from '@/features/home/pages/Home.jsx';
+import Header from '@/components/layout/Header';
+import Home from '@/features/home/pages/Home';
 import Gallery from '@/features/gallery/pages/Gallery';
-import Auth from '@/features/auth/pages/Auth.jsx';
+import Auth from '@/features/auth/pages/Auth';
+import TableView from "@/features/guidelines/pages/TableView"
+import DiscoverPage from '@/features/discover/page/DiscoverPage';
 
 function App() {
   const location = useLocation();
@@ -19,6 +21,8 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/auth/login" element={<Auth />} />
         <Route path='/auth/signup' element={<Auth />} />
+        <Route path='/guidelines' element={<TableView />} />
+        <Route path='/discover' element={<DiscoverPage />} />
       </Routes>
     </>
   );

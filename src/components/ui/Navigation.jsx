@@ -14,7 +14,7 @@ function Navigation() {
         <img src={homeIcon} alt="Home" style={iconStyle} />
       </NavLink>
 
-      <NavLink to="/followers" >
+      <NavLink to="/discover" >
         <img src={followersIcon} alt="Followers" style={iconStyle} />
       </NavLink>
 
@@ -26,7 +26,7 @@ function Navigation() {
         <img src={notificationIcon} alt="Notifications" style={iconStyle} />
       </NavLink>
 
-      <NavLink to="/guidlines" >
+      <NavLink to="/guidelines" >
         <img src={bookIcon} alt="Library" style={iconStyle} />
       </NavLink>
     </nav>
