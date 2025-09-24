@@ -4,7 +4,7 @@ import "@/assets/styles/Home.css";
 import FollowerSuggest from "@/components/layout/FollowerSuggest";
 import CreatePost from "@/components/layout/CreatePost";
 import profile from "@/assets/images/logo.png";
-import ModelView from "@/components/layout/ModelView";
+import PostModel from "@/components/layout/PostModel";
 import InfiniteFeed from "../../feed/pages/InfiniteFeed";
 
 
@@ -20,7 +20,7 @@ export default function Home() {
     if (!commentView) setCommentView(true);
   };
 
-  return (
+  return (<>
     <section className="flex FY-center">
       <FollowerSuggest />
       {/* Fake follow suggest space */}
@@ -39,5 +39,7 @@ export default function Home() {
       </section>
 
     </section>
-  );
+
+    <PostModel />
+  </>);
 }

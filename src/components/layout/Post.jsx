@@ -19,6 +19,7 @@ import MoreIcon from "@/assets/IconComponents/More";
  *
  * @param {Array<string>} props.media  Array of URLs (images or videos)
  */
+
 export default function Post({
   postId,
   username,

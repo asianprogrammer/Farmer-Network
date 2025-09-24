@@ -10,7 +10,7 @@ function ModelView({ title, children, onClose }) {
       <section className="model-view">
         <div className="title flex FY-center F-space">
           <div>{title}</div>
-          <button onClick={onClose}><CloseIcon /></button>
+          <button className="close-model" onClick={onClose}><CloseIcon /></button>
         </div>
 
         <section className="scrollView">
