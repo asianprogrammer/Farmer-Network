@@ -19,6 +19,36 @@
   --layoutContrast: #111827;
   --lighterGray: rgb(55 65 81);
   --layoutSecondary: rgba(31, 41, 55, 0.5);
+
+  --card: var(--layout);
+  --cardBorder: var(--lighterGray);
+  --muted: var(--gray);
+
+  /* Variants */
+  --purple-100: #E9D5FF;
+  --purple-800: #5B21B6;
+  --purple-900: #3B0764;
+
+  --indigo-100: #E0E7FF;
+  --indigo-800: #3730A3;
+  --indigo-900: #1E1B4B;
+
+  --blue-100: #DBEAFE;
+  --blue-800: #1E40AF;
+  --blue-900: #0B1C3D;
+
+  --red-100: #FEE2E2;
+  --red-800: #991B1B;
+
+  --green-100: #DCFCE7;
+  --green-800: #166534;
+
+  --orange-100: #FFEDD5;
+  --orange-800: #9A3412;
+
+  --badgeRadius: 999px;
+  --radius: 10px;
+  --radiusSm: 8px;
 }
 
 body {

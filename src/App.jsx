@@ -5,6 +5,7 @@ import Gallery from '@/features/gallery/pages/Gallery';
 import Auth from '@/features/auth/pages/Auth';
 import TableView from "@/features/guidelines/pages/TableView"
 import DiscoverPage from '@/features/discover/page/DiscoverPage';
+import NotificationPage from '@/features/notification/page/NotificationPage';
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,7 @@ function App() {
         <Route path='/auth/signup' element={<Auth />} />
         <Route path='/guidelines' element={<TableView />} />
         <Route path='/discover' element={<DiscoverPage />} />
+        <Route path='/notifications' element={<NotificationPage />} />
       </Routes>
     </>
   );
