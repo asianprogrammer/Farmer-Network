@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import ModalShell from "@/components/ui/ModalShell";
+
 import CloseIcon from "@/assets/IconComponents/Close";
 import ImageIcon from "@/assets/IconComponents/Image";
 import VideoIcon from "@/assets/IconComponents/Video";
@@ -15,67 +16,79 @@ const formatSize = (bytes) =>
       }`
     : "0 B";
 
-export default function Posting({ username = "Guest", onPost }) {
+// Convert image to base64
+const fileToBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (err) => reject(err);
+  });
+
+export default function Posting({ user = { username: "Guest", profile: "" }, onPost, onClose }) {
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
   const imageRef = useRef();
   const videoRef = useRef();
 
-  useEffect(() => () => files.forEach((f) => URL.revokeObjectURL(f.url)), [files]);
+  // Cleanup object URLs
+  useEffect(() => () => files.forEach(f => f.type === "video" && URL.revokeObjectURL(f.url)), [files]);
 
   const addFiles = useCallback(
-    (e, type) => {
-      const newList = [...files];
+    async (e, type) => {
+      const newFiles = [...files];
       for (const f of e.target.files) {
-        if (newList.length >= MAX_FILES) break;
-        const url = URL.createObjectURL(f);
-        newList.push({ id: url, url, name: f.name, size: formatSize(f.size), type, file: f });
+        if (newFiles.length >= MAX_FILES) break;
+
+        const url = type === "image" ? await fileToBase64(f) : URL.createObjectURL(f);
+        newFiles.push({ id: URL.createObjectURL(f), url, name: f.name, size: formatSize(f.size), type, file: f });
       }
-      setFiles(newList);
+      setFiles(newFiles);
       e.target.value = "";
     },
     [files]
   );
 
   const removeFile = (id) =>
-    setFiles((prev) => {
-      const toRemove = prev.find((f) => f.id === id);
-      if (toRemove) URL.revokeObjectURL(toRemove.url);
-      return prev.filter((f) => f.id !== id);
+    setFiles((prev) => prev.filter((f) => f.id !== id));
+
+  const handlePost = async () => {
+    const images = await Promise.all(
+      files.filter(f => f.type === "image").map(async f => ({ name: f.name, size: f.size, base64: f.url }))
+    );
+    const videos = files.filter(f => f.type === "video").map(f => ({ name: f.name, size: f.size, file: f.file }));
+
+    onPost?.({
+      user,
+      content,
+      images,
+      videos,
     });
 
-  const handlePost = () => {
-    onPost?.({
-      content,
-      images: files.filter((f) => f.type === "image"),
-      videos: files.filter((f) => f.type === "video"),
-    });
     setContent("");
     setFiles([]);
+    onClose?.();
   };
 
-  const imgCount = files.filter((f) => f.type === "image").length;
-  const vidCount = files.filter((f) => f.type === "video").length;
+  const imgCount = files.filter(f => f.type === "image").length;
+  const vidCount = files.filter(f => f.type === "video").length;
 
   return (
-    <ModalShell header="Create Post" onClose={() => {}}>
+    <ModalShell header="Create Post" onClose={onClose}>
       <section className="post-body">
         <div className="user flex FY-center">
           <div className="profile">
-            <img
-              src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`}
-              alt={username}
-            />
+            <img src={user.profile || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.username}`} alt={user.username} />
           </div>
           <div className="user-info">
-            <div className="name">{username}</div>
+            <div className="name">{user.username}</div>
             <span className="subtitle">Share your thoughts...</span>
           </div>
         </div>
 
         <section className="post-content">
           <textarea
-            placeholder={`What's on your mind, ${username}?`}
+            placeholder={`What's on your mind, ${user.username}?`}
             className="post-textarea"
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -85,7 +98,7 @@ export default function Posting({ username = "Guest", onPost }) {
         {!!files.length && (
           <div className="post-media">
             <div className="media-grid">
-              {files.map((f) => (
+              {files.map(f => (
                 <div key={f.id} className="media-item">
                   <div className="media-preview">
                     {f.type === "image" ? (
@@ -98,7 +111,7 @@ export default function Posting({ username = "Guest", onPost }) {
                     )}
                     <div className="media-status"><CheckIcon /></div>
                     <button className="media-close-button" onClick={() => removeFile(f.id)}>
-                      <CloseIcon />
+                      <CloseIcon stroke="#fff" />
                     </button>
                   </div>
                   <p className="media-filename">{f.name} ({f.size})</p>
@@ -112,46 +125,20 @@ export default function Posting({ username = "Guest", onPost }) {
       <footer className="post-footer">
         <div className="post-controls">
           <div className="post-options">
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              className="hidden-input"
-              ref={imageRef}
-              onChange={(e) => addFiles(e, "image")}
-            />
-            <button
-              className="option-button"
-              disabled={files.length >= MAX_FILES}
-              onClick={() => imageRef.current?.click()}
-            >
+            <input type="file" accept="image/*" multiple hidden ref={imageRef} onChange={(e) => addFiles(e, "image")} />
+            <button className="option-button" disabled={files.length >= MAX_FILES} onClick={() => imageRef.current?.click()}>
               <ImageIcon /> <span className="option-text">Photo ({imgCount}/{MAX_FILES})</span>
             </button>
 
-            <input
-              type="file"
-              accept="video/*"
-              multiple
-              className="hidden-input"
-              ref={videoRef}
-              onChange={(e) => addFiles(e, "video")}
-            />
-            <button
-              className="option-button"
-              disabled={files.length >= MAX_FILES}
-              onClick={() => videoRef.current?.click()}
-            >
+            <input type="file" accept="video/*" multiple hidden ref={videoRef} onChange={(e) => addFiles(e, "video")} />
+            <button className="option-button" disabled={files.length >= MAX_FILES} onClick={() => videoRef.current?.click()}>
               <VideoIcon /> <span className="option-text">Video ({vidCount}/{MAX_FILES})</span>
             </button>
           </div>
         </div>
 
         <div className="post-action">
-          <button
-            className="post-button"
-            onClick={handlePost}
-            disabled={!content.trim() && !files.length}
-          >
+          <button className="post-button" onClick={handlePost} disabled={!content.trim() && !files.length}>
             Post
           </button>
         </div>

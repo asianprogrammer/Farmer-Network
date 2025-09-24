@@ -5,6 +5,7 @@ export default function CheckIcon(props) {
       width="16"
       height="16"
       fill="currentColor"
+      stroke="currentColor"
       {...props}
     >
       <path
