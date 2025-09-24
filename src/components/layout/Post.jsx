@@ -67,8 +67,8 @@ export default function Post({
     <article className="post">
       {/* Header */}
       <header className="post-header flex FY-center F-space">
-        <NavLink to={`/user/${username}`} className="flex items-center gap-2">
-          <div className="profile w-10 h-10 rounded-full overflow-hidden">
+        <NavLink to={`/user/${username}`} className="flex profile-container">
+          <div className="profile">
             <img
               src={profile}
               alt={`${username}'s profile`}
@@ -81,7 +81,7 @@ export default function Post({
           </div>
         </NavLink>
 
-        <div className="options">
+        <div className="options flex F-center">
           <MoreIcon />
         </div>
       </header>
@@ -108,6 +108,7 @@ export default function Post({
                     <video
                       src={url}
                       muted
+                      controls
                       preload="metadata"
                       className="media-video"
                     />
