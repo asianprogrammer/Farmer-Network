@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import SendIcon from "@/assets/IconComponents/SendIcon";
-import "@/assets/styles/commentbox.css";
+import "@/assets/styles/CommentBox.css";
 
 export default function CommentBox({
   profileSrc = "https://api.dicebear.com/7.x/avataaars/svg?seed=1758770649432",
