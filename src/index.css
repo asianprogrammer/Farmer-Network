@@ -64,6 +64,10 @@ body {
   color: red;
 }
 
+.relative {
+  position: relative;
+}
+
 .flex {
   display: flex;
 }
