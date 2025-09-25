@@ -61,7 +61,7 @@ body {
 }
 
 .error {
-  color: var(--red-800);
+  color: red;
 }
 
 .flex {
