@@ -129,7 +129,7 @@ const handleSubmit = async (e) => {
               disabled={isSubmitting}
               required
             />
-            {errors.name && <p className="text-red-600">{errors.name}</p>}
+            {errors.name && <p className="error">{errors.name}</p>}
           </div>
 
           <div className="gap">
@@ -144,7 +144,7 @@ const handleSubmit = async (e) => {
               disabled={isSubmitting}
               required
             />
-            {errors.username && <p className="text-red-600">{errors.username}</p>}
+            {errors.username && <p className="error">{errors.username}</p>}
           </div>
 
           <div className="gap">
@@ -159,7 +159,7 @@ const handleSubmit = async (e) => {
               disabled={isSubmitting}
               required
             />
-            {errors.phone && <p className="text-red-600">{errors.phone}</p>}
+            {errors.phone && <p className="error">{errors.phone}</p>}
           </div>
 
           <div className="gap">
@@ -179,7 +179,7 @@ const handleSubmit = async (e) => {
                 </option>
               ))}
             </select>
-            {errors.state && <p className="text-red-600">{errors.state}</p>}
+            {errors.state && <p className="error">{errors.state}</p>}
           </div>
         </section>
 
@@ -196,7 +196,7 @@ const handleSubmit = async (e) => {
               disabled={isSubmitting}
               required
             />
-            {errors.address && <p className="text-red-600">{errors.address}</p>}
+            {errors.address && <p className="error">{errors.address}</p>}
           </div>
 
           <div className="gap">
@@ -211,7 +211,7 @@ const handleSubmit = async (e) => {
               disabled={isSubmitting}
               required
             />
-            {errors.email && <p className="text-red-600">{errors.email}</p>}
+            {errors.email && <p className="error">{errors.email}</p>}
           </div>
 
           <div className="gap">
@@ -236,7 +236,7 @@ const handleSubmit = async (e) => {
                 {showPassword ? <EyeIcon width={20} /> : <EyeOffIcon width={20} />}
               </button>
             </div>
-            {errors.password && <p className="text-red-600">{errors.password}</p>}
+            {errors.password && <p className="error">{errors.password}</p>}
           </div>
 
           <div className="gap">
@@ -258,7 +258,7 @@ const handleSubmit = async (e) => {
               />
             </div>
             {errors.confirmPassword && (
-              <p className="text-red-600">{errors.confirmPassword}</p>
+              <p className="error">{errors.confirmPassword}</p>
             )}
           </div>
         </section>
