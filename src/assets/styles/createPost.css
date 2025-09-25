@@ -11,9 +11,9 @@
     gap: .75rem;
 }
 
-.createPost .profile {
-    width: 2.5rem;
-    height: 2.5rem;
+.createPostProfile {
+    width: 2.6rem;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     overflow: hidden;
 }

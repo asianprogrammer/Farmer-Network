@@ -11,7 +11,7 @@ function CreatePost({
   return (
     <div className="createPost">
       <section className="flex FY-center MB-1rem">
-        <div className="profile">
+        <div className="createPostProfile">
           <img src={profile} alt="user profile" />
         </div>
         <div className="textPost" onClick={onTextClick}>

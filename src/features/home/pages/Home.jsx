@@ -48,7 +48,7 @@ export default function Home() {
         <section className="feed-area">
           <CreatePost
             user={user.name.split(" ")[0]}
-            profile={profile}
+            profile={`https://api.dicebear.com/9.x/initials/svg?seed=${user.name}`}
             onTextClick={() => openModal("post")}
             onPhotoVideoClick={() => openModal("post")}
             onFellingClick={() => openModal("feelings")}
@@ -75,7 +75,7 @@ export default function Home() {
         <Posting
           user={{
             username: user.name,
-            profile: "https://example.com/profile.jpg",
+            profile: `https://api.dicebear.com/9.x/initials/svg?seed=${user.name}`,
           }}
           onPost={handlePostSubmit}
           onClose={closeModal}
