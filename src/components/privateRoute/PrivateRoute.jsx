@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { getToken } from "@/utils/auth";
+import { getToken } from "@/utils/Auth";
 
 export default function PrivateRoute({ children }) {
   const token = getToken();
