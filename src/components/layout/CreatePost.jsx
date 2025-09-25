@@ -14,7 +14,7 @@ function CreatePost({
         <div className="profile">
           <img src={profile} alt="user profile" />
         </div>
-        <div className="text" onClick={onTextClick}>
+        <div className="textPost" onClick={onTextClick}>
           <span>{`What's on your mind, ${user}?`}</span>
         </div>
       </section>

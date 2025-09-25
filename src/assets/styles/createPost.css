@@ -18,13 +18,14 @@
     overflow: hidden;
 }
 
-.text {
+.textPost {
     width: 100%;
     padding: .75rem 1rem;
     background: var(--lighterGray);
     border-radius: 25px;
     color: var(--gray);
     font-size: 1.125rem;
+    cursor: pointer;
 }
 
 .mediaPostOptions span,
