@@ -1,25 +1,44 @@
-import { useState } from "react";
-import EyeIcon from '@/assets/IconComponents/Eye';
-import EyeOffIcon from '@/assets/IconComponents/EyeOff';
+import { useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import EyeIcon from "@/assets/IconComponents/Eye";
+import EyeOffIcon from "@/assets/IconComponents/EyeOff";
+import { registerUser } from "../../../api/authApi";
+import toast from "react-hot-toast";
+
+// Initial form state
+const initialFormState = {
+  name: "",
+  username: "",
+  phone: "",
+  state: "",
+  address: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
+// Reducer for form state
+function formReducer(state, action) {
+  switch (action.type) {
+    case "UPDATE_FIELD":
+      return { ...state, [action.field]: action.value };
+    case "RESET":
+      return initialFormState;
+    default:
+      return state;
+  }
+}
 
 export default function Register() {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    username: "",
-    mobile: "",
-    division: "",
-    address: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [error, setError] = useState("");
+  const [formData, dispatch] = useReducer(formReducer, initialFormState);
+  const [errors, setErrors] = useState({});
   const [status, setStatus] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const divisions = [
+  const states = [
     "ঢাকা",
     "চট্টগ্রাম",
     "সিলেট",
@@ -30,52 +49,67 @@ export default function Register() {
     "ময়মনসিংহ",
   ];
 
-  function validate() {
-    if (Object.values(formData).some(value => !value.trim())) {
-      setError("সবগুলো ফিল্ড পূরণ করা আবশ্যক।");
-      return false;
-    }
-    if (formData.password.length < 8) {
-      setError("পাসওয়ার্ড সর্বনিম্ন ৮ অক্ষরের হতে হবে।");
-      return false;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      setError("পাসওয়ার্ড দুটি মিলছে না।");
-      return false;
-    }
-    return true;
-  }
+  // Validation
+  const validate = () => {
+    const newErrors = {};
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
+    if (!formData.name) newErrors.name = "নাম দিতে হবে।";
+    if (!formData.username) newErrors.username = "ইউজারনেম দিতে হবে।";
+    if (!formData.phone) newErrors.phone = "মোবাইল নম্বর দিতে হবে।";
+    if (!formData.state) newErrors.state = "বিভাগ নির্বাচন করুন।";
+    if (!formData.address) newErrors.address = "ঠিকানা দিতে হবে।";
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+    if (!formData.email) newErrors.email = "ইমেল দিতে হবে।";
+    else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email))
+      newErrors.email = "সঠিক ইমেল ঠিকানা দিন।";
 
-    setError("");
-    if (!validate()) {
-      return;
-    }
+    if (!formData.password) newErrors.password = "পাসওয়ার্ড দিতে হবে।";
+    else if (formData.password.length < 6)
+      newErrors.password = "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।";
 
+    if (formData.confirmPassword !== formData.password)
+      newErrors.confirmPassword = "পাসওয়ার্ড মিলছে না।";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle form submit
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!validate()) return;
+
+  try {
     setIsSubmitting(true);
-    const payload = {
-      ...formData,
-      submitted: true,
-    };
+    const res = await registerUser(formData);
 
-    console.log("Processing registration...", payload);
+    // Success toaster
+    toast.success("নিবন্ধন সফল হয়েছে! এখন লগইন করুন।");
 
-    // Simulate API call
-    await new Promise((res) => setTimeout(res, 2000));
+    setStatus(res);
+    dispatch({ type: "RESET" });
+    setErrors({});
 
-    setStatus(payload);
+    // 2 সেকেন্ড পরে login page redirect
+    setTimeout(() => {
+      navigate("/auth/login");
+    }, 1000);
+
+  } catch (err) {
+    console.error(err);
+    setErrors({ general: "নিবন্ধন সম্পন্ন করা যায়নি। পরে আবার চেষ্টা করুন।" });
+  } finally {
     setIsSubmitting(false);
   }
+};
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch({ type: "UPDATE_FIELD", field: name, value });
+  };
 
   return (
     <form onSubmit={handleSubmit} noValidate className="signup">
@@ -84,17 +118,18 @@ export default function Register() {
       <section className="signup-group">
         <section className="left">
           <div className="gap">
-            <label htmlFor="fullName">নাম</label>
+            <label htmlFor="name">নাম</label>
             <input
-              id="fullName"
-              name="fullName"
+              id="name"
+              name="name"
               type="text"
-              value={formData.fullName}
+              value={formData.name}
               placeholder="আপনার নাম লিখুন"
               onChange={handleChange}
               disabled={isSubmitting}
               required
             />
+            {errors.name && <p className="text-red-600">{errors.name}</p>}
           </div>
 
           <div className="gap">
@@ -109,39 +144,42 @@ export default function Register() {
               disabled={isSubmitting}
               required
             />
+            {errors.username && <p className="text-red-600">{errors.username}</p>}
           </div>
 
           <div className="gap">
-            <label htmlFor="mobile">মোবাইল নম্বর</label>
+            <label htmlFor="phone">মোবাইল নম্বর</label>
             <input
-              id="mobile"
-              name="mobile"
+              id="phone"
+              name="phone"
               type="text"
-              value={formData.mobile}
+              value={formData.phone}
               placeholder="+8801XXXXXXXXX"
               onChange={handleChange}
               disabled={isSubmitting}
               required
             />
+            {errors.phone && <p className="text-red-600">{errors.phone}</p>}
           </div>
 
           <div className="gap">
-            <label htmlFor="division">বিভাগ</label>
+            <label htmlFor="state">বিভাগ</label>
             <select
-              id="division"
-              name="division"
-              value={formData.division}
+              id="state"
+              name="state"
+              value={formData.state}
               onChange={handleChange}
               disabled={isSubmitting}
               required
             >
               <option value="">বিভাগ নির্বাচন করুন</option>
-              {divisions.map((div) => (
+              {states.map((div) => (
                 <option key={div} value={div}>
                   {div}
                 </option>
               ))}
             </select>
+            {errors.state && <p className="text-red-600">{errors.state}</p>}
           </div>
         </section>
 
@@ -158,6 +196,7 @@ export default function Register() {
               disabled={isSubmitting}
               required
             />
+            {errors.address && <p className="text-red-600">{errors.address}</p>}
           </div>
 
           <div className="gap">
@@ -172,6 +211,7 @@ export default function Register() {
               disabled={isSubmitting}
               required
             />
+            {errors.email && <p className="text-red-600">{errors.email}</p>}
           </div>
 
           <div className="gap">
@@ -196,6 +236,7 @@ export default function Register() {
                 {showPassword ? <EyeIcon width={20} /> : <EyeOffIcon width={20} />}
               </button>
             </div>
+            {errors.password && <p className="text-red-600">{errors.password}</p>}
           </div>
 
           <div className="gap">
@@ -216,13 +257,16 @@ export default function Register() {
                 required
               />
             </div>
+            {errors.confirmPassword && (
+              <p className="text-red-600">{errors.confirmPassword}</p>
+            )}
           </div>
         </section>
       </section>
 
-      {error && (
+      {errors.general && (
         <div role="alert" className="error">
-          {error}
+          {errors.general}
         </div>
       )}
 
@@ -242,13 +286,6 @@ export default function Register() {
           লগইন করুন
         </NavLink>
       </section>
-
-      {status && (
-        <div>
-          <h4>Returned JSON:</h4>
-          <pre>{JSON.stringify(status, null, 2)}</pre>
-        </div>
-      )}
     </form>
   );
 }

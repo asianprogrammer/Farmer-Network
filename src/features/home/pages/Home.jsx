@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchMe } from "../../../api/authApi";
+
 import "@/assets/styles/Home.css";
 
 import FollowerSuggest from "@/components/layout/FollowerSuggest";
@@ -23,6 +25,20 @@ export default function Home() {
     closeModal();
   };
 
+  const [users, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchMe()
+      .then((data) => setUser(data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const user = users?.data;
+
+  if (loading) return <div>লোড হচ্ছে...</div>;
+
   return (
     <>
       <section className="flex FY-center">
@@ -38,13 +54,29 @@ export default function Home() {
             onFellingClick={() => openModal("feelings")}
           />
 
+          <div className="data">
+            <h1>Dashboard</h1>
+            {user ? (
+              <div>
+                <p>নাম: {user.name}</p>
+                <p>ইউজারনেম: {user.username}</p>
+                <p>ই-মেইল: {user.email}</p>
+              </div>
+            ) : (
+              <p>User data পাওয়া যায়নি।</p>
+            )}
+          </div>
+
           <InfiniteFeed />
         </section>
       </section>
 
       {modalVisible && (
         <Posting
-          user={{ username: "Jon Don", profile: "https://example.com/profile.jpg" }}
+          user={{
+            username: "Jon Don",
+            profile: "https://example.com/profile.jpg",
+          }}
           onPost={handlePostSubmit}
           onClose={closeModal}
         />

@@ -1,44 +1,76 @@
 import { useState } from "react";
-import EyeIcon from '@/assets/IconComponents/Eye';
-import EyeOffIcon from '@/assets/IconComponents/EyeOff';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import EyeIcon from "@/assets/IconComponents/Eye";
+import EyeOffIcon from "@/assets/IconComponents/EyeOff";
+import { loginUser } from "../../../api/authApi"; // তোমার API ফাইল থেকে
 
 export default function Login() {
-   const [formData, setFormData] = useState({ username: "", password: "" });
-  const [error, setError] = useState("");
-  const [status, setStatus] = useState(null);
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  function validate() {
-    if (!formData.username.trim() || !formData.password.trim()) return false;
-    if (formData.password.length < 8) return false;
-    return true;
-  }
+  // Validation function
+  const validate = () => {
+    const newErrors = {};
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    setError("");
-    if (!validate()) {
-      setError("Invalid username/email or password");
-      return;
+    if (!formData.email.trim()) {
+      newErrors.email = "ইউজারনেম বা ই-মেইল দিতে হবে।";
     }
 
+    if (!formData.password.trim()) {
+      newErrors.password = "পাসওয়ার্ড দিতে হবে।";
+    } else if (formData.password.length < 6) {
+      newErrors.password = "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({});
+
+    if (!validate()) return;
+
     setIsSubmitting(true);
-    const payload = {
-      username: formData.username,
-      password: formData.password,
-      submitted: true,
-    };
 
-    console.log("Processing login...", payload);
+    try {
+      const res = await loginUser(formData); // API call
+      
+      if (res?.data?.accessToken) {
+        // Save token in localStorage
+        localStorage.setItem("accessToken", res.data.accessToken);
+      }
 
-    await new Promise((res) => setTimeout(res, 2000));
-
-    setStatus(payload);
-    setIsSubmitting(false);
-  }
+      if (res?.success) {
+        toast.success("সফলভাবে লগইন হয়েছে! ড্যাশবোর্ডে নিয়ে যাওয়া হচ্ছে...");
+        setTimeout(() => navigate("/"), 1500); // 1.5 সেকেন্ড পরে redirect
+      } else {
+        // API থেকে error message
+        const msg = res?.message || "ইউজারনেম বা পাসওয়ার্ড ভুল।";
+        toast.error(msg);
+        setErrors({ general: msg });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("লগইন সম্পন্ন করা যায়নি। পরে আবার চেষ্টা করুন।");
+      setErrors({ general: "লগইন সম্পন্ন করা যায়নি। পরে আবার চেষ্টা করুন।" });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit} noValidate className="login">
@@ -47,24 +79,23 @@ export default function Login() {
       <div className="gap">
         <input
           type="text"
-          value={formData.username}
-          placeholder="ইউজারনেম বা ই-মেইল"
-          onChange={(e) =>
-            setFormData({ ...formData, username: e.target.value })
-          }
+          name="email"
+          value={formData.email}
+          placeholder="ই-মেইল"
+          onChange={handleChange}
           disabled={isSubmitting}
         />
+        {errors.email && <div className="error">{errors.email}</div>}
       </div>
 
       <div className="gap">
         <div className="wrapper">
           <input
-            type={showPassword ? "text" : "password"} // Toggle type
+            type={showPassword ? "text" : "password"}
+            name="password"
             value={formData.password}
             placeholder="পাসওয়ার্ড"
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
+            onChange={handleChange}
             disabled={isSubmitting}
           />
           <button
@@ -76,29 +107,27 @@ export default function Login() {
             {showPassword ? <EyeIcon width={20} /> : <EyeOffIcon width={20} />}
           </button>
         </div>
+        {errors.password && <div className="error">{errors.password}</div>}
       </div>
 
-      {error && (
-        <div role="alert" className="error">
-          {error}
-        </div>
-      )}
+      {errors.general && <div className="error">{errors.general}</div>}
 
       <button type="submit" className="submit" disabled={isSubmitting}>
-        {isSubmitting ? (<> <div className="spinner"></div> লগইন হচ্ছে... </>) : ("লগইন করুন")}
+        {isSubmitting ? (
+          <>
+            <div className="spinner"></div> লগইন হচ্ছে...
+          </>
+        ) : (
+          "লগইন করুন"
+        )}
       </button>
 
       <section className="text-center">
         আপনি কি নিবন্ধন করেন নি?&nbsp;
-        <NavLink to="/auth/signup" className="nav-link">নিবন্ধন করুন</NavLink>
+        <NavLink to="/auth/signup" className="nav-link">
+          নিবন্ধন করুন
+        </NavLink>
       </section>
-
-      {status && (  
-        <div>
-          <h4>Returned JSON:</h4>
-          <pre>{JSON.stringify(status, null, 2)}</pre>
-        </div>
-      )}
     </form>
   );
 }

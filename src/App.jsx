@@ -1,16 +1,19 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
-import Header from '@/components/layout/Header';
-import Home from '@/features/home/pages/Home';
-import Gallery from '@/features/gallery/pages/Gallery';
-import Auth from '@/features/auth/pages/Auth';
-import TableView from "@/features/guidelines/pages/TableView"
-import DiscoverPage from '@/features/discover/page/DiscoverPage';
-import NotificationPage from '@/features/notification/page/NotificationPage';
+import { Routes, Route, useLocation } from "react-router-dom";
+import Header from "@/components/layout/Header";
+import Home from "@/features/home/pages/Home";
+import Gallery from "@/features/gallery/pages/Gallery";
+import Auth from "@/features/auth/pages/Auth";
+import TableView from "@/features/guidelines/pages/TableView";
+import DiscoverPage from "@/features/discover/page/DiscoverPage";
+import NotificationPage from "@/features/notification/page/NotificationPage";
+import PrivateRoute from "./components/privateRoute/PrivateRoute";
+import PublicRoute from "./components/privateRoute/PublicRoute";
+import RoleBasedRoute from "./components/privateRoute/RoleBasedRoute"; // নতুন যোগ
+import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 
 function App() {
   const location = useLocation();
-  const hideHeader = ['/auth/login', '/auth/signup']
-
+  const hideHeader = ["/auth/login", "/auth/signup"];
   const showHeader = !hideHeader.includes(location.pathname);
 
   return (
@@ -18,13 +21,75 @@ function App() {
       {showHeader && <Header />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/auth/login" element={<Auth />} />
-        <Route path='/auth/signup' element={<Auth />} />
-        <Route path='/guidelines' element={<TableView />} />
-        <Route path='/discover' element={<DiscoverPage />} />
-        <Route path='/notifications' element={<NotificationPage />} />
+        {/* Public routes */}
+        <Route
+          path="/auth/login"
+          element={
+            <PublicRoute>
+              <Auth />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/auth/signup"
+          element={
+            <PublicRoute>
+              <Auth />
+            </PublicRoute>
+          }
+        />
+
+        {/* Private routes */}
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/gallery"
+          element={
+            <PrivateRoute>
+              <Gallery />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/guidelines"
+          element={
+            <PrivateRoute>
+              <TableView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/discover"
+          element={
+            <PrivateRoute>
+              <DiscoverPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <PrivateRoute>
+              <NotificationPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Role based routes */}
+        <Route
+          path="/admin"
+          element={
+            <RoleBasedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </RoleBasedRoute>
+          }
+        />
       </Routes>
     </>
   );
