@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { fetchMe } from "@/api/authApi";
 
-import Profile from "../components/Profile";
+import Profile from "../src/features/profile/components/Profile";
 
 const ProfileView = () => {
 
   const userData = {
     profile: "https://api.dicebear.com/9.x/initials/svg?seed=JohanDeo",
     name: "John Doe",
-    gmail: "john@example.com",
+    mail: "john@example.com",
     username: "johndoe",
     followers: 120,
     following: 80,

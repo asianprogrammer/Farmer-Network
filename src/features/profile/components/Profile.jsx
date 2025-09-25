@@ -5,7 +5,7 @@ function Profile({ data, changeProfile }) {
   const {
     profile,     // profile image URL
     name,
-    gmail,
+    mail,
     username,
     followers,
     following,
@@ -35,7 +35,7 @@ function Profile({ data, changeProfile }) {
       <section className="user-details">
         <section className="main flex FD-c">
           <span className="name">{name}</span>
-          <span className="mail">{gmail}</span>
+          <span className="mail">{mail}</span>
           <span className="username">@{username}</span>
         </section>
 

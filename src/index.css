@@ -1,10 +1,3 @@
-@font-face {
-  font-family: 'Inter';
-  src: url('/src/assets/fonts/inter.woff2') format('woff2');
-  font-weight: 100 900;
-  font-display: swap;
-}
-
 :root {
   --radius: .5rem;
 }
@@ -14,16 +7,16 @@
   --background: #111827;
   --text: #FFFFFF;
   --primary: #3B82F6;
-  --darkGray: #6B7280;
   --hover: #374151;
   --layout: #1F2937;
   --layoutContrast: #18212F;
+  --darkGray: #475367;
   --lighterGray: #222B3A;
   --layoutSecondary: rgba(31, 41, 55, 0.5);
   --border: hsl(217, 28%, 32%);
 
   --card: var(--layout);
-  --cardBorder: var(--lighterGray);
+  --cardBorder: #3a455b;
   --muted: var(--gray);
 
   /* Variants */

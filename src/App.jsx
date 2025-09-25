@@ -10,7 +10,7 @@ import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import PublicRoute from "./components/privateRoute/PublicRoute";
 import RoleBasedRoute from "./components/privateRoute/RoleBasedRoute"; // নতুন যোগ
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
-import ProfileView from "@/features/profile/pages/ProfileView";
+import SettingsPage from "@/features/profile/pages/SettingsPage";
 
 function App() {
   const location = useLocation();
@@ -86,7 +86,7 @@ function App() {
           path="/profile"
           element={
             <PrivateRoute>
-              <ProfileView />
+              <SettingsPage />
             </PrivateRoute>
           }
         />
