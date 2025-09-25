@@ -13,6 +13,7 @@ import "@/assets/styles/ZoomInOutOff.css";
 import HeartIcon from "@/assets/IconComponents/Love";
 import CommentIcon from "@/assets/IconComponents/Comment";
 import MoreIcon from "@/assets/IconComponents/More";
+import CommentBox from "../ui/CommentBox";
 
 /**
  * Post component
@@ -162,6 +163,11 @@ export default function Post({
             )}
           </button>
         </footer>
+
+        <section className="comment-section">
+          <CommentBox />
+        </section>
+
       </section>
 
       {/* Lightbox: only uses slides from this post */}

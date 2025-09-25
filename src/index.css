@@ -16,8 +16,8 @@
   --primary: #3B82F6;
   --hover: #374151;
   --layout: #1F2937;
-  --layoutContrast: #111827;
-  --lighterGray: rgb(55 65 81);
+  --layoutContrast: #18212F;
+  --lighterGray: #222B3A;
   --layoutSecondary: rgba(31, 41, 55, 0.5);
 
   --card: var(--layout);

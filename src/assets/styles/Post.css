@@ -2,7 +2,7 @@
     width: 100%;
     overflow: hidden;
     margin-top: 1.5rem;
-    background: var(--layout);
+    background: var(--layoutContrast);
     border: solid 1px #37415180;
     border-radius: calc(var(--radius) + 2px);
 }
