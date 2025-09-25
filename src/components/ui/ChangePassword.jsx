@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "@/assets/styles/ChangePassword.css";
-import SaveButton from "./SaveButton";
+import SaveButton from "@/components/ui/SaveButton";
 
 const ChangePassword = ({ onChangePassword }) => {
   const [form, setForm] = useState({

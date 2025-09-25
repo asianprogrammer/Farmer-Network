@@ -1,0 +1,23 @@
+.appearance-card {
+  background: var(--card);
+  border: 1px solid var(--cardBorder);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+}
+
+.appearance-btn {
+  background: var(--layout);
+  border: 1px solid var(--cardBorder);
+  border-radius: var(--radiusSm);
+  padding: 8px 16px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.appearance-btn:hover {
+  background: var(--hover);
+}

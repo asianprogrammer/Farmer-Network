@@ -1,0 +1,26 @@
+.savebutton {
+  background: linear-gradient(to right, var(--blue-800), var(--blue-900));
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
+.savebutton:hover {
+  background: linear-gradient(to right, var(--blue-900), var(--blue-800));
+}
+
+.savebutton.danger {
+  background: linear-gradient(to right, var(--red-800), var(--red-100));
+  color: var(--text);
+}
+
+.savebutton.danger:hover {
+  background: var(--red-800);
+  color: var(--text);
+}

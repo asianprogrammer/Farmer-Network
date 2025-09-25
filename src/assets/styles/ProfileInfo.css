@@ -1,0 +1,27 @@
+.profileinfo-form {
+  background: var(--card);
+  border: 1px solid var(--cardBorder);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: var(--text);
+}
+
+.profileinfo-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--muted);
+}
+
+.profileinfo-form input,
+.profileinfo-form textarea {
+  background: var(--layout);
+  border: 1px solid var(--cardBorder);
+  border-radius: var(--radiusSm);
+  padding: 10px;
+  color: var(--text);
+}

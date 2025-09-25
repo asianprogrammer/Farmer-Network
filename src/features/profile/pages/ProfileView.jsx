@@ -1,11 +1,11 @@
 import React from "react";
 import "@/assets/styles/ProfileView.css";
 
-import UserDetails from "./UserDetails";
-import ProfileInfo from "./ProfileInfo";
-import ChangePassword from "./ChangePassword";
-import Appearance from "./Appearance";
-import AccountActions from "./AccountActions";
+import UserDetails from "@/components/ui/UserDetails";
+import ProfileInfo from "@/components/ui/ProfileInfo";
+import ChangePassword from "@/components/ui/ChangePassword";
+import Appearance from "@/components/ui/Appearance";
+import AccountActions from "@/components/ui/AccountActions";
 
 const ProfileView = () => {
   const handleSave = (data) => {
