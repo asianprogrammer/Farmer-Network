@@ -39,6 +39,8 @@ export default function Home() {
 
   if (loading) return <div>লোড হচ্ছে...</div>;
 
+  console.log(users)
+
   return (
     <>
       <section className="flex FY-center">

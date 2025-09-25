@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import '@/assets/styles/Followers.css';
 import { useState } from "react";
 
-function Follower({ userid, userprofile, username, mail, onFollow }) {
+function Follower({ userid, userprofile, username, email, onFollow }) {
     const [isFollowing, setIsFollowing] = useState(false);
 
     const handleFollowClick = (e) => {
@@ -19,7 +19,7 @@ function Follower({ userid, userprofile, username, mail, onFollow }) {
                 </div>
                 <div className="info">
                     <div className="name">{username}</div>
-                    <div className="username">{mail}</div>
+                    <div className="username">{email}</div>
                 </div>
             </section>
             <button onClick={handleFollowClick}>

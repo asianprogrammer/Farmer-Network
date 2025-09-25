@@ -8,7 +8,7 @@ const ProfileView = () => {
   const userData = {
     profile: "https://api.dicebear.com/9.x/initials/svg?seed=JohanDeo",
     name: "John Doe",
-    mail: "john@example.com",
+    email: "john@example.com",
     username: "johndoe",
     followers: 120,
     following: 80,

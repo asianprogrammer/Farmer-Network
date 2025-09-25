@@ -1,31 +1,59 @@
+import { useState, useEffect } from "react";
+import { fetchMe } from "@/api/authApi";
+
 import "../styles/common.css";
 import ProfileCard from "../components/ProfileCard";
 import ProfileForm from "../components/ProfileForm";
 import PasswordForm from "../components/PasswordForm";
 import Appearance from "../components/Appearance";
 import AccountActions from "../components/AccountActions";
-import { useState } from "react";
 
 export default function SettingsPage() {
-  const [profile, setProfile] = useState({
-    profile: "https://api.dicebear.com/7.x/avataaars/svg?seed=1758799099862",
-    name: "error",
-    mail: "pawakin995@bitfami.com",
-    username: "error",
-    followers: 0,
-    following: 3,
-    status: true
-  });
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
+  const [formValues, setFormValues] = useState(null);
 
-  const [formValues, setFormValues] = useState({
-    fullName: "error",
-    username: "error",
-    bio: "",
-    phone: "01569859875",
-    address: "error"
-  });
+  useEffect(() => {
+    let alive = true;
 
-  const [mode, setMode] = useState("Dark");
+    (async () => {
+      try {
+        const res = await fetchMe();
+        const me = res?.data ?? res;
+
+        if (!alive) return;
+
+
+        setProfile({
+          profile: `https://api.dicebear.com/9.x/initials/svg?seed=${me.name}`,
+          name: me?.name,
+          email: me?.email,
+          username: me?.username,
+          followers: 0,   // TODO: not in API; keep simple defaults
+          following: 0,
+          status: true
+        });
+
+        setFormValues({
+          fullName: me?.name,
+          username: me?.username,
+          bio: "",        // TODO: not in API
+          phone: me?.phone,
+          address: me?.address
+        });
+      } catch (e) {
+        console.error("Failed to fetch profile:", e);
+      } finally {
+        if (alive) setLoading(false);
+      }
+    })();
+
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  if (loading) return <h1>Loading Profile</h1>;
 
   return (
     <div className="container">
@@ -37,20 +65,25 @@ export default function SettingsPage() {
       <div className="grid-2 mt-24">
         <ProfileForm
           values={formValues}
-          onChange={(e)=>setFormValues(v=>({ ...v, [e.target.name]: e.target.value }))}
-          onSubmit={(e)=>{ e.preventDefault(); console.log("save profile", formValues); }}
+          onChange={(e) =>
+            setFormValues((v) => ({ ...v, [e.target.name]: e.target.value }))
+          }
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log("save profile", formValues);
+          }}
         />
         <PasswordForm
-          onSubmit={(e)=>{ e.preventDefault(); console.log("change password"); }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log("change password");
+          }}
         />
       </div>
 
       <div className="grid-2 mt-24">
-        <Appearance
-          mode={mode}
-          onToggle={()=>setMode(m=>m === "Dark" ? "Light" : "Dark")}
-        />
-        <AccountActions onSignOut={()=>console.log("sign out")} />
+        <Appearance />
+        <AccountActions onSignOut={() => console.log("sign out")} />
       </div>
     </div>
   );

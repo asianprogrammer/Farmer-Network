@@ -6,7 +6,7 @@ export default function ProfileCard({ data, onChangePhoto }) {
   const {
     profile,
     name,
-    mail,
+    email,
     username,
     followers = 0,
     following = 0,
@@ -32,7 +32,7 @@ export default function ProfileCard({ data, onChangePhoto }) {
 
         <div style={{ flex: 1 }}>
           <h2 className="h2">{name || "—"}</h2>
-          <p className="gray">{mail || "—"}</p>
+          <p className="gray">{email || "—"}</p>
           <div className="username">@{username || "user"}</div>
 
           <div className="user-details mt-24">

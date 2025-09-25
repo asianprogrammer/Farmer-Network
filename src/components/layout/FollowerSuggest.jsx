@@ -14,7 +14,7 @@ export default function FollowerSuggest() {
                         userid={Math.random().toString(36).substring(7)}
                         userprofile={profile}
                         username="John Doe"
-                        mail="johnasdfadfasdfasdfasdfsadfdoe@gmail.com"
+                        email="johnasdfadfasdfasdfasdfsadfdoe@gmail.com"
                         onFollow={(id, isFollowing) => alert(`User ${id} is now ${isFollowing ? 'followed' : 'unfollowed'}`)}
                     />
                 ))}
