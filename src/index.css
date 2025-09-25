@@ -14,11 +14,13 @@
   --background: #111827;
   --text: #FFFFFF;
   --primary: #3B82F6;
+  --darkGray: #6B7280;
   --hover: #374151;
   --layout: #1F2937;
   --layoutContrast: #18212F;
   --lighterGray: #222B3A;
   --layoutSecondary: rgba(31, 41, 55, 0.5);
+  --border: hsl(217, 28%, 32%);
 
   --card: var(--layout);
   --cardBorder: var(--lighterGray);
@@ -64,6 +66,14 @@ body {
   color: red;
 }
 
+.gray {
+  color: var(--gray);
+}
+
+.green {
+  color: var(--green-800);
+}
+
 .relative {
   position: relative;
 }
@@ -83,6 +93,10 @@ body {
 
 .F-space {
   justify-content: space-between;
+}
+
+.FD-c {
+  flex-direction: column;
 }
 
 .MB-1rem {

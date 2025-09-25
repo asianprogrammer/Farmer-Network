@@ -1,4 +1,5 @@
 import CameraIcon from "@/assets/IconComponents/CameraIcon";
+import "../styles/ProfileDetails.css";
 
 function Profile({ data, changeProfile }) {
   const {
@@ -15,7 +16,7 @@ function Profile({ data, changeProfile }) {
     <section className="userDetails flex FY-center">
     
       {/* Profile Image */}
-      <section>
+      <section className="relative">
         <div className="largeProfile">
           <img
             src={profile}
@@ -32,24 +33,24 @@ function Profile({ data, changeProfile }) {
 
       {/* User Details */}
       <section className="user-details">
-        <section className="main flex">
+        <section className="main flex FD-c">
           <span className="name">{name}</span>
-          <span className="gmail">{gmail}</span>
-          <span className="username">{username}</span>
+          <span className="mail">{gmail}</span>
+          <span className="username">@{username}</span>
         </section>
 
         {/* Followers / Following / Status */}
-        <section className="flex FY-center">
-          <section className="followers">
+        <section className="status-container flex FY-center">
+          <section className="followers flex FD-c F-center">
             <div className="count">{followers}</div>
             <div className="text">Followers</div>
           </section>
-          <section className="followers">
+          <section className="followers flex FD-c F-center">
             <div className="count">{following}</div>
             <div className="text">Following</div>
           </section>
-          <section className="followers">
-            <div className={`status ${status ? "on" : "off"}`}></div>
+          <section className="followers flex FD-c F-center">
+            <div className={`status ${status ? "green" : "gray"}`}>●</div>
             <div className="text">{status ? "Online" : "Offline"}</div>
           </section>
         </section>
