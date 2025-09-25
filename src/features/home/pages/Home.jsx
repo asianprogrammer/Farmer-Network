@@ -47,7 +47,7 @@ export default function Home() {
 
         <section className="feed-area">
           <CreatePost
-            user="John"
+            user={user.name.split(" ")[0]}
             profile={profile}
             onTextClick={() => openModal("post")}
             onPhotoVideoClick={() => openModal("post")}
@@ -74,7 +74,7 @@ export default function Home() {
       {modalVisible && (
         <Posting
           user={{
-            username: "Jon Don",
+            username: user.name,
             profile: "https://example.com/profile.jpg",
           }}
           onPost={handlePostSubmit}
