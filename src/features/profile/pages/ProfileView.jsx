@@ -6,7 +6,7 @@ import Profile from "../components/Profile";
 const ProfileView = () => {
 
   const userData = {
-    profile: "https://example.com/avatar.png",
+    profile: "https://api.dicebear.com/9.x/initials/svg?seed=JohanDeo",
     name: "John Doe",
     gmail: "john@example.com",
     username: "johndoe",
