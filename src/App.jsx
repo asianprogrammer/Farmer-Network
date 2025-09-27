@@ -10,7 +10,7 @@ import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import PublicRoute from "./components/privateRoute/PublicRoute";
 import RoleBasedRoute from "./components/privateRoute/RoleBasedRoute"; // নতুন যোগ
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
-import SettingsPage from "@/features/profile/pages/SettingsPage";
+import SettingsPage from "@/features/settings/pages/SettingsPage";
 
 function App() {
   const location = useLocation();
