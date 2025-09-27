@@ -12,7 +12,7 @@ function Follower({ userid, userprofile, username, email, onFollow }) {
     };
 
     return (
-        <Link to={`/user?${userid}`} className='follower'>
+        <Link to={`/user?id=${userid}`} className='follower'>
             <section>
                 <div className="profile">
                     <img src={userprofile} alt={username + " Profile"} />
