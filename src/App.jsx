@@ -14,6 +14,8 @@ import SettingsPage from "@/features/settings/pages/SettingsPage";
 import ProfilePage from "@/features/profile/pages/Profile";
 import PesticidePage from "@/features/pesticide/pages/pesticidePage";
 import ShowBazarRate from "@/features/marcketrate/pages/ShowBazarRate";
+import ShowBizBazar from "@/features/seed/pages/BizBazar";
+
 
 function App() {
   const location = useLocation();
@@ -70,6 +72,14 @@ function App() {
           </PrivateRoute>
         }
         />
+
+        <Route
+        path="/seed-market"
+        element={
+          <PrivateRoute>
+            <ShowBizBazar />
+          </PrivateRoute>
+        } />
 
         <Route
           path="/user?"
