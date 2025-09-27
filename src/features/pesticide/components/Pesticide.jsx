@@ -1,12 +1,4 @@
 import { useMemo, useRef, useEffect, useState, useCallback } from "react";
-
-import HouseIcon from "@/assets/IconComponents/HouseIcon";
-import UserIcon from "@/assets/IconComponents/UserIcon";
-import ImageIcon from "@/assets/IconComponents/ImageIcon";
-import MessageCircleIcon from "@/assets/IconComponents/MessageCircleIcon";
-import BellIcon from "@/assets/IconComponents/BellIcon";
-import BookOpenIcon from "@/assets/IconComponents/BookOpenIcon";
-import MenuIcon from "@/assets/IconComponents/Menu";
 import SearchIcon from "@/assets/IconComponents/SearchIcon";
 
 import PesticideList from "./PesticideList";
