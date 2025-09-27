@@ -196,7 +196,7 @@
   font-weight: 800;
 }
 .priceUnit {
-  margin-left: 0.4rem;
+  margin-left: 0.1rem;
   color: #9ca3af;
   font-size: 0.85rem;
 }
@@ -213,10 +213,10 @@
   font-size: 0.9rem;
   font-weight: 600;
 }
-.trendUp {
+.trendDown {
   color: #f87171;
 } /* red */
-.trendDown {
+.trendUp {
   color: #34d399;
 } /* green */
 .prev {
