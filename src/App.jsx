@@ -13,6 +13,7 @@ import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 import SettingsPage from "@/features/settings/pages/SettingsPage";
 import ProfilePage from "@/features/profile/pages/Profile";
 import PesticidePage from "@/features/pesticide/pages/pesticidePage";
+import ShowBazarRate from "@/features/marcketrate/pages/ShowBazarRate";
 
 function App() {
   const location = useLocation();
@@ -59,6 +60,15 @@ function App() {
               <PesticidePage />
             </PrivateRoute>
           }
+        />
+
+        <Route
+        path="/market"
+        element={
+          <PrivateRoute>
+            <ShowBazarRate />
+          </PrivateRoute>
+        }
         />
 
         <Route
