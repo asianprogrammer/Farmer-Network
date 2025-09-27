@@ -35,27 +35,17 @@ export default function Header() {
         // Normalize what SideMenu needs
         setProfile({
           name: me?.name || me?.username || "User",
-          username: me?.username || (me?.email ? me.email.split("@")[0] : "user"),
           avatar: `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(
             me?.name || me?.username || "U"
           )}`,
-          email: me?.email ?? "",
-          followers: 0,
-          following: 0,
-          status: true,
         });
       } catch (e) {
         console.error("Failed to fetch profile:", e);
         // Fallback guest profile (non-blocking)
         setProfile({
           name: "Guest",
-          username: "guest",
           avatar:
             "https://api.dicebear.com/9.x/initials/svg?seed=G",
-          email: "",
-          followers: 0,
-          following: 0,
-          status: false,
         });
       } finally {
         if (alive) setLoading(false);
@@ -78,7 +68,6 @@ export default function Header() {
     if (!profile) return undefined;
     return {
       name: profile.name,
-      username: profile.username,
       avatar: profile.avatar,
     };
   }, [profile]);

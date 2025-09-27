@@ -12,6 +12,7 @@ import RoleBasedRoute from "./components/privateRoute/RoleBasedRoute"; // নত
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 import SettingsPage from "@/features/settings/pages/SettingsPage";
 import ProfilePage from "@/features/profile/pages/Profile";
+import PesticidePage from "@/features/pesticide/pages/pesticidePage";
 
 function App() {
   const location = useLocation();
@@ -51,12 +52,23 @@ function App() {
           }
         />
 
-        <Route path="/user?"
-        element={
-          <PrivateRoute>
-            <ProfilePage />
-          </PrivateRoute>
-        } />
+        <Route
+          path="/pesticide"
+          element={
+            <PrivateRoute>
+              <PesticidePage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/user?"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/gallery"

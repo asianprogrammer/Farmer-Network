@@ -15,7 +15,6 @@ export default function SideMenu({
   onClose = () => {},
   user = {
     name: "",
-    username: "",
     avatar: "https://api.dicebear.com/9.x/initials/svg?seed=K",
   },
   items: itemsProp,
@@ -62,10 +61,10 @@ export default function SideMenu({
             aria-label="Edit profile"
             title="Edit profile"
           >
-            <img src={user.avatar} alt={user.username} className={styles.profileAvatar} />
+            <img src={user.avatar} alt={user.name} className={styles.profileAvatar} />
             <div className={styles.profileText}>
               <h3 id="menu-title" className={styles.profileName}>
-                {user.name || user.username}
+                {user.name} 
               </h3>
               <p className={styles.profileHint}>edit profile</p>
             </div>
