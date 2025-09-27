@@ -11,6 +11,7 @@ import PublicRoute from "./components/privateRoute/PublicRoute";
 import RoleBasedRoute from "./components/privateRoute/RoleBasedRoute"; // নতুন যোগ
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 import SettingsPage from "@/features/settings/pages/SettingsPage";
+import ProfilePage from "@/features/profile/pages/Profile";
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,14 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route path="/user?"
+        element={
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        } />
+
         <Route
           path="/gallery"
           element={

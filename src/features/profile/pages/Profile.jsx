@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from "react";
-import ProfileHeader from "./ProfileHeader";
-import ProfileTabs from "./ProfileTabs";
+import ProfileHeader from "../components/ProfileHeader";
+import ProfileTabs from "../components/ProfileTabs";
 import Post from "@/components/layout/Post"; // your existing Post component
-import "@/assets/styles/Profile.css";
+import "../styles/Profile.css";
 
 /**
  * Props:

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import Grid from "@/components/icons/Grid";
-import Camera from "@/components/icons/Camera";
-import "@/assets/styles/Profile.css";
+import GridIcon from "@/assets/IconComponents/Grid";
+import CameraIcon from "@/assets/IconComponents/CameraIcon";
+import "../styles/Profile.css";
 
 /**
  * Props:
@@ -25,14 +25,14 @@ export default function ProfileTabs({ posts = [], renderPost }) {
           onClick={() => setTab("posts")}
           type="button"
         >
-          <Grid /> Posts
+          <GridIcon /> Posts
         </button>
         <button
           className={`tab ${tab === "photos" ? "active" : ""}`}
           onClick={() => setTab("photos")}
           type="button"
         >
-          <Camera /> Photos
+          <CameraIcon /> Photos
         </button>
       </div>
 

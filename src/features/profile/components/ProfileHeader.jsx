@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import Camera from "@/components/icons/Camera";
-import MapPin from "@/components/icons/MapPin";
-import Calendar from "@/components/icons/Calendar";
-import "@/assets/styles/Profile.css";
+import CameraIcon from "@/assets/IconComponents/CameraIcon";
+import MapPinIcon from "@/assets/IconComponents/MapPinIcon";
+import CalendarIcon from "@/assets/IconComponents/Calendar";
+import "../styles/Profile.css";
 
 /**
  * Props:
@@ -25,7 +25,7 @@ export default function ProfileHeader({ user, isOwner }) {
 
         {isOwner && (
           <NavLink to="/profile" className="cover-edit btn-ghost" aria-label="Edit cover">
-            <Camera />
+            <CameraIcon />
             <span>Edit Cover</span>
           </NavLink>
         )}
@@ -45,7 +45,7 @@ export default function ProfileHeader({ user, isOwner }) {
               aria-label="Edit profile photo"
               title="Edit profile photo"
             >
-              <Camera />
+              <CameraIcon />
             </NavLink>
           )}
         </div>
@@ -66,11 +66,11 @@ export default function ProfileHeader({ user, isOwner }) {
 
           <div className="meta-row">
             <div className="meta-item flex FY-center gap-1">
-              <MapPin />
+              <MapPinIcon />
               <span className="muted">{user?.location || "—"}</span>
             </div>
             <div className="meta-item flex FY-center gap-1">
-              <Calendar />
+              <CalendarIcon />
               <span className="muted">Joined {joinedText}</span>
             </div>
           </div>
