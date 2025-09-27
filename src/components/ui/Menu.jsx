@@ -1,9 +1,19 @@
-import MenuIcon from '@/assets/icons/Menu.svg';
+import { memo } from "react";
+import MenuIcon from "@/assets/icons/Menu.svg";
 
-function Menu(){
-    return (<div className='menuIcon' title='Menu'>
-        <img src={MenuIcon} alt="Menu" />
-    </div>)
+function Menu({ menuHandler, isOpen = false }) {
+  return (
+    <button
+      type="button"
+      className={`menuIcon${isOpen ? " active" : ""}`}
+      title="Menu"
+      aria-haspopup="dialog"
+      aria-expanded={isOpen ? "true" : "false"}
+      onClick={menuHandler}
+    >
+      <img src={MenuIcon} alt="Menu" />
+    </button>
+  );
 }
 
-export default Menu;
+export default memo(Menu);

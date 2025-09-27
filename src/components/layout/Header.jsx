@@ -1,20 +1,102 @@
-import Brand from '@/components/ui/Brand';
-import Search from '@/components/ui/Search';
-import Navigation from '@/components/ui/Navigation';
-import Menu from '@/components/ui/Menu';
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { fetchMe } from "@/api/authApi";
 
-import '@/assets/styles/Header.css';
+import Brand from "@/components/ui/Brand";
+import Search from "@/components/ui/Search";
+import Navigation from "@/components/ui/Navigation";
+import Menu from "@/components/ui/Menu";
+import SideMenu from "@/components/layout/SideMenu";
 
-function Header() {
-    return (<div className='header'>
-        <div className='group'>
-            <Brand />
-            <Search />
+import "@/assets/styles/Header.css";
+
+export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
+
+  const location = useLocation();
+
+  // Toggle / close handlers
+  const toggleMenu = useCallback(() => setMenuOpen(v => !v), []);
+  const closeMenu  = useCallback(() => setMenuOpen(false), []);
+
+  // Fetch current user once
+  useEffect(() => {
+    let alive = true;
+
+    (async () => {
+      try {
+        const res = await fetchMe();
+        const me = res?.data ?? res;
+
+        if (!alive || !me) return;
+
+        // Normalize what SideMenu needs
+        setProfile({
+          name: me?.name || me?.username || "User",
+          username: me?.username || (me?.email ? me.email.split("@")[0] : "user"),
+          avatar: `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(
+            me?.name || me?.username || "U"
+          )}`,
+          email: me?.email ?? "",
+          followers: 0,
+          following: 0,
+          status: true,
+        });
+      } catch (e) {
+        console.error("Failed to fetch profile:", e);
+        // Fallback guest profile (non-blocking)
+        setProfile({
+          name: "Guest",
+          username: "guest",
+          avatar:
+            "https://api.dicebear.com/9.x/initials/svg?seed=G",
+          email: "",
+          followers: 0,
+          following: 0,
+          status: false,
+        });
+      } finally {
+        if (alive) setLoading(false);
+      }
+    })();
+
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  // Close the drawer when navigating
+  useEffect(() => {
+    if (menuOpen) closeMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  // Memoize just what SideMenu needs
+  const userForMenu = useMemo(() => {
+    if (!profile) return undefined;
+    return {
+      name: profile.name,
+      username: profile.username,
+      avatar: profile.avatar,
+    };
+  }, [profile]);
+
+  return (
+    <>
+      <div className="header" aria-busy={loading ? "true" : "false"}>
+        <div className="group">
+          <Brand />
+          <Search />
         </div>
 
         <Navigation />
-        <Menu />
-    </div>)
-}
+        <Menu menuHandler={toggleMenu} isOpen={menuOpen} />
+      </div>
 
-export default Header
+      {/* SideMenu renders into document.body (portal inside component) */}
+      <SideMenu open={menuOpen} onClose={closeMenu} user={userForMenu} />
+    </>
+  );
+}
