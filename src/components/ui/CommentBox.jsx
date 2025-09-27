@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import SendIcon from "@/assets/IconComponents/SendIcon";
-import "@/assets/styles/CommentBox.css";
+import styles from "@/assets/styles/CommentBox.module.css";
 
 export default function CommentBox({
   profileSrc = "https://api.dicebear.com/7.x/avataaars/svg?seed=1758770649432",
@@ -28,15 +28,15 @@ export default function CommentBox({
   };
 
   return (
-    <div className="comment-box" role="form" aria-label="Comment form">
-      <span className="avatar">
+    <div className={styles["comment-box"]} role="form" aria-label="Comment form">
+      <span className={styles.avatar}>
         <img src={profileSrc} alt="Profile" />
       </span>
 
-      <div className="input-wrap">
+      <div className={styles["input-wrap"]}>
         <input
           ref={inputRef}
-          className="comment-input"
+          className={styles["comment-input"]}
           type="text"
           placeholder={placeholder}
           value={value}
@@ -46,14 +46,14 @@ export default function CommentBox({
         />
         <button
           type="button"
-          className="send-btn"
+          className={styles["send-btn"]}
           onClick={handleSubmit}
           disabled={isDisabled}
           aria-label="Send comment"
           title="Send"
         >
           <SendIcon
-            className="send-icon"
+            className={styles["send-icon"]}
             aria-hidden="true"
             style={{ color: "#d2d9e2ff" }}
           />

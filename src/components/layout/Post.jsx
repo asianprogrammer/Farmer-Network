@@ -69,7 +69,7 @@ export default function Post({
     <article className="post">
       {/* Header */}
       <header className="post-header flex FY-center F-space">
-        <NavLink to={`/user/${username}`} className="flex profile-container">
+        <NavLink to={`/user?id=${username}`} className="flex profile-container">
           <div className="profile">
             <img
               src={profile}
