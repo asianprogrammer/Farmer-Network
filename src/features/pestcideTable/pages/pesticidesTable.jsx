@@ -1,5 +1,5 @@
 import ShowPesticideCompany from "../components/ShowPesticideCompany";
 
-export default function pesticidesTable() {
+export default function PesticidesTable() {
   return <ShowPesticideCompany />;
 }

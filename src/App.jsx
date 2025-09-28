@@ -12,10 +12,10 @@ import RoleBasedRoute from "./components/privateRoute/RoleBasedRoute"; // নত
 import AdminDashboard from "@/features/admin/pages/AdminDashboard";
 import SettingsPage from "@/features/settings/pages/SettingsPage";
 import ProfilePage from "@/features/profile/pages/Profile";
-import PesticidePage from "@/features/pesticide/pages/pesticidePage";
+import PesticidePage from "@/features/pesticide/pages/PesticidePage";
+import PesticidesTable from "@/features/pestcideTable/pages/PesticidesTable";
 import ShowBazarRate from "@/features/marcketrate/pages/ShowBazarRate";
 import ShowBizBazar from "@/features/seed/pages/BizBazar";
-
 
 function App() {
   const location = useLocation();
@@ -65,21 +65,30 @@ function App() {
         />
 
         <Route
-        path="/market"
-        element={
-          <PrivateRoute>
-            <ShowBazarRate />
-          </PrivateRoute>
-        }
+          path="/pesticide/table?"
+          element={
+            <PrivateRoute>
+              <PesticidesTable />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/market"
+          element={
+            <PrivateRoute>
+              <ShowBazarRate />
+            </PrivateRoute>
+          }
         />
 
         <Route
-        path="/seed-market"
-        element={
-          <PrivateRoute>
-            <ShowBizBazar />
-          </PrivateRoute>
-        } />
+          path="/seed-market"
+          element={
+            <PrivateRoute>
+              <ShowBizBazar />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/user?"

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
  */
 export default function PesticideCard({ title, name, rating = 0, location, url }) {
   return (
-    <Link to={`table=${url}`}>
+    <Link to={`table?url=${url}`}>
       <article className={styles.card} role="button" tabIndex={0}>
         <div className={styles.cardHeader}>
           <div className={styles.avatar}>
