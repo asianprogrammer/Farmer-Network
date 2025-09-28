@@ -53,6 +53,7 @@ export default function PesticideList({ items = [] }) {
             name={it.name}
             rating={Number(it.rating) || 0}
             location={it.location}
+            url={it.url}
           />
         ))}
       </div>
