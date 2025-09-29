@@ -1,24 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useInRouterContext } from "react-router-dom";
 import styles from "../styles/pest.module.css";
 import ArrowLeftIcon from "@/assets/IconComponents/ArrowLeftIcon";
 import ImageIcon from "@/assets/IconComponents/ImageIcon";
 
 const FALLBACK_CARDS = [
-  { img: "https://picsum.photos/200",       caption: "বীজ থেকে চারা তৈরি করুন", url: "https://example.com/seedling" },
-  { img: "https://picsum.photos/200",         caption: "সকালে সেচ দিন",             url: "https://example.com/watering" },
-  { img: "https://picsum.photos/200",         caption: "স্টেকিং করুন",               url: "https://example.com/staking" },
-  { img: "https://picsum.photos/200",     caption: "পচা ফল অপসারণ করুন",         url: "https://example.com/remove-rot" },
-  { img: "https://picsum.photos/200",  caption: "পচনের জন্য ছত্রাকনাশক দিন",   url: "https://example.com/fungicide-1" },
-  { img: "https://picsum.photos/200", caption: "পচনের জন্য ছত্রাকনাশক দিন",   url: "https://example.com/fungicide-2" },
+  { img: "/upload/img/whitefly.jpg",       caption: "বীজ থেকে চারা তৈরি করুন", url: "https://example.com/seedling" },
+  { img: "/upload/img/jassid.jpg",         caption: "সকালে সেচ দিন",             url: "https://example.com/watering" },
+  { img: "/upload/img/thrips.jpg",         caption: "স্টেকিং করুন",               url: "https://example.com/staking" },
 ];
 
-/**
- * Props:
- * - cropBn, cropEn, blurb, sectionTitle
- * - cards: [{ img, caption, url }]
- * - onBack: optional handler (defaults to window.history.back)
- */
 export default function PestGalleryPage({
   cropBn = "টমেটো",
   cropEn = "Tomato",
@@ -27,8 +18,10 @@ export default function PestGalleryPage({
   cards = [],
   onBack,
 }) {
-    console.log(cards)
-  const list = Array.isArray(cards) && cards.length ? cards : FALLBACK_CARDS;
+  const inRouter = useInRouterContext?.() ?? false;
+  const list =
+    Array.isArray(cards) && cards.length > 0 ? cards : FALLBACK_CARDS;
+
   const handleBack = onBack || (() => window.history.back());
 
   return (
@@ -56,9 +49,9 @@ export default function PestGalleryPage({
 
           <div className={styles.grid}>
             {list.map((c, i) => {
-              const to = `/pest/post=${encodeURIComponent(c.url || "")}`;
-              return (
-                <Link key={`${c.caption}-${i}`} to={to} className={styles.card}>
+              const href = `/pest/post=${encodeURIComponent(c.url || "")}`;
+              const content = (
+                <>
                   <div className={styles.square}>
                     <img
                       src={c.img}
@@ -70,7 +63,17 @@ export default function PestGalleryPage({
                   <div className={styles.cardBody}>
                     <p className={styles.caption}>{c.caption}</p>
                   </div>
+                </>
+              );
+
+              return inRouter ? (
+                <Link key={`${c.caption}-${i}`} to={href} className={styles.card}>
+                  {content}
                 </Link>
+              ) : (
+                <a key={`${c.caption}-${i}`} href={href} className={styles.card}>
+                  {content}
+                </a>
               );
             })}
           </div>
