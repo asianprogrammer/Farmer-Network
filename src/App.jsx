@@ -17,8 +17,8 @@ import PesticidesTable from "@/features/pestcideTable/pages/PesticidesTable";
 import ShowBazarRate from "@/features/marcketrate/pages/ShowBazarRate";
 import ShowBizBazar from "@/features/seed/pages/BizBazar";
 import FollowPage from "@/features/follow/pages/Follow";
-import PestGalleryPage from "./features/pest/components/PestGalleryPage";
-
+import PestPage from "@/features/pest/pages/pestGallery";
+import ShowPestDetail from "@/features/pest/pages/ShowPestDetail";
 
 function App() {
   const location = useLocation();
@@ -59,12 +59,13 @@ function App() {
         />
 
         <Route
-        path="/follow"
-        element={
-          <PrivateRoute>
-            <FollowPage />
-          </PrivateRoute>
-        } />
+          path="/follow"
+          element={
+            <PrivateRoute>
+              <FollowPage />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/pesticide"
@@ -76,12 +77,22 @@ function App() {
         />
 
         <Route
-        path="/pest?"
-        element={
-          <PrivateRoute>
-            <PestGalleryPage />
-          </PrivateRoute>
-        } />
+          path="/pest?"
+          element={
+            <PrivateRoute>
+              <PestPage />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/pest/details?"
+          element={
+            <PrivateRoute>
+              <ShowPestDetail />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/pesticide/table?"

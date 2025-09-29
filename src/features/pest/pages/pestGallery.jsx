@@ -1,5 +1,5 @@
 import ShowPestGallery from "../components/ShowPestGallery";
 
-export default function Page() {
+export default function PestPage() {
   return <ShowPestGallery />;
 }
