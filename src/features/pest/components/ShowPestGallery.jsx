@@ -1,25 +1,20 @@
-import PestGalleryPage from "./PestGalleryPage";
-
-const IMG = (name) => `/upload/img/${name}`; // keep your existing folder
-
-const CARDS = [
-  { img: IMG("whitefly.jpg"),       caption: "বীজ থেকে চারা তৈরি করুন", url: "https://example.com/seedling" },
-  { img: IMG("jassid.jpg"),         caption: "সকালে সেচ দিন",             url: "https://example.com/watering" },
-  { img: IMG("thrips.jpg"),         caption: "স্টেকিং করুন",               url: "https://example.com/staking" },
-  { img: IMG("rice-blast.jpg"),     caption: "পচা ফল অপসারণ করুন",         url: "https://example.com/remove-rot" },
-  { img: IMG("sheath-blight.jpg"),  caption: "পচনের জন্য ছত্রাকনাশক দিন",   url: "https://example.com/fungicide-1" },
-  { img: IMG("powdery-mildew.jpg"), caption: "পচনের জন্য ছত্রাকনাশক দিন",   url: "https://example.com/fungicide-2" },
-];
+import React from "react";
+import PestGalleryPage from "../components/PestGalleryPage";
 
 export default function ShowPestGallery() {
+  const cards = [
+    { img: "https://picsum.photos/200", caption: "বীজ থেকে চারা তৈরি করুন", url: "https://guide.example/seedling" },
+    { img: "https://picsum.photos/300",   caption: "সকালে সেচ দিন",             url: "https://guide.example/watering" },
+    { img: "https://picsum.photos/400",   caption: "স্টেকিং করুন",               url: "https://guide.example/staking" },
+  ];
+
   return (
     <PestGalleryPage
       cropBn="টমেটো"
       cropEn="Tomato"
       blurb="টমেটো একটি জনপ্রিয় সবজি। এটি রান্নায় ব্যবহার করা হয় এবং পুষ্টিকর।"
       sectionTitle="ক্ষতিকর পোকামাকড়ের ছবি"
-      cards={CARDS}
-      onBack={() => history.back()}
+      cards={cards} // remove to see fallback
     />
   );
 }
