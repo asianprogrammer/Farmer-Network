@@ -11,6 +11,18 @@
     border-right: 1px solid #374151;
 }
 
+@media only screen and (max-width: 850px) {
+    .follower-suggest {
+        display: none;
+    }
+    .fake-follow-section {
+        display: none;
+    }
+    .feed-area {
+        margin-top: 0.5rem;
+    }
+}
+
 .follower-suggest .scrollViw {
     height: calc(100vh - 8rem);
     overflow-y: auto;
