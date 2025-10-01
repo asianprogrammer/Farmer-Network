@@ -1,6 +1,8 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import "@/assets/styles/UserCard.css";
+import UserPlusIcon from "../../assets/IconComponents/UserPlusIcon";
+import UserIcon from "../../assets/IconComponents/UserIcon";
 
 function UserCardBase({ user }) {
   return (
@@ -15,7 +17,7 @@ function UserCardBase({ user }) {
       <div className="user-card__body">
         <div className="name-row">
           <h3 className="username" title={user.name}>
-            <Link to={`/u/${encodeURIComponent(user.id)}`} className="username-link">
+            <Link to={`/user?id=${encodeURIComponent(user.id)}`} className="username-link">
               {user.name}
             </Link>
           </h3>
@@ -35,23 +37,16 @@ function UserCardBase({ user }) {
       </div>
 
       <div className="user-card__right">
-        {user.canMessage ? (
-          <Link className="btn btn--secondary" to={`/messages/compose?to=${encodeURIComponent(user.id)}`}>
-            {/* Lucide message-circle */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
-            </svg>
-            Message
-          </Link>
+        {user.unfollow ? (
+          <button className="btn btn--ghost" type="button" onClick={() => alert(`Followed ${user.name}!`)}>
+            {/* Lucide user-plus */}
+            <UserIcon />
+            Unfollow
+          </button>
         ) : (
           <button className="btn btn--ghost" type="button" onClick={() => alert(`Followed ${user.name}!`)}>
             {/* Lucide user-plus */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <line x1="19" x2="19" y1="8" y2="14"></line>
-              <line x1="22" x2="16" y1="11" y2="11"></line>
-            </svg>
+            <UserPlusIcon />
             Follow
           </button>
         )}

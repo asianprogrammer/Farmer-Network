@@ -15,6 +15,7 @@ export const USERS = [
     bio: "Helllo Bangladesh",
     online: true,
     canMessage: false,
+    unfollow: true,
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=1757625520343",
   },
   {
