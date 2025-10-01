@@ -3,7 +3,7 @@ import Header from "@/components/layout/Header";
 import Home from "@/features/home/pages/Home";
 import Gallery from "@/features/gallery/pages/Gallery";
 import Auth from "@/features/auth/pages/Auth";
-import TableView from "@/features/guidelines/pages/TableView";
+import TableViewPage from "@/features/guidelines/pages/TableViewPage";
 import DiscoverPage from "@/features/discover/page/DiscoverPage";
 import NotificationPage from "@/features/notification/page/NotificationPage";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
@@ -141,7 +141,7 @@ function App() {
           path="/guidelines"
           element={
             <PrivateRoute>
-              <TableView />
+              <TableViewPage />
             </PrivateRoute>
           }
         />
