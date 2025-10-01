@@ -25,7 +25,7 @@ export default function SettingsPage() {
 
 
         setProfile({
-          profile: `https://api.dicebear.com/9.x/initials/svg?seed=${me.name}`,
+          profile: me?.profileImage,
           name: me?.name,
           email: me?.email,
           username: me?.username,

@@ -19,3 +19,11 @@ export const loginUser = (data) => {
 
 // Get me
 export const fetchMe = () => request("/users/me", { method: "GET" });
+
+// Update Profile
+export const updateProfile = (formData) => {
+  return request("/users/profile", {
+    method: "PUT",
+    body: formData, // FormData send হবে
+  });
+};

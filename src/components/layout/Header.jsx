@@ -35,9 +35,7 @@ export default function Header() {
         // Normalize what SideMenu needs
         setProfile({
           name: me?.name || me?.username || "User",
-          avatar: `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(
-            me?.name || me?.username || "U"
-          )}`,
+          avatar: me?.profileImage,
         });
       } catch (e) {
         console.error("Failed to fetch profile:", e);
@@ -45,7 +43,7 @@ export default function Header() {
         setProfile({
           name: "Guest",
           avatar:
-            "https://api.dicebear.com/9.x/initials/svg?seed=G",
+            "https://api.dicebear.com/9.x/initials/svg?seed=K",
         });
       } finally {
         if (alive) setLoading(false);

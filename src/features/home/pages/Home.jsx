@@ -6,7 +6,6 @@ import "@/assets/styles/Home.css";
 import FollowerSuggest from "@/components/layout/FollowerSuggest";
 import CreatePost from "@/components/layout/CreatePost";
 import InfiniteFeed from "../../feed/pages/InfiniteFeed";
-import profile from "@/assets/images/logo.png";
 import Posting from "@/components/layout/PostModel";
 
 export default function Home() {
@@ -50,7 +49,7 @@ export default function Home() {
         <section className="feed-area">
           <CreatePost
             user={user.name.split(" ")[0]}
-            profile={`https://api.dicebear.com/9.x/initials/svg?seed=${user.name}`}
+            profile={user.profileImage}
             onTextClick={() => openModal("post")}
             onPhotoVideoClick={() => openModal("post")}
             onFellingClick={() => openModal("feelings")}
@@ -64,7 +63,7 @@ export default function Home() {
         <Posting
           user={{
             username: user.name,
-            profile: `https://api.dicebear.com/9.x/initials/svg?seed=${user.name}`,
+            profile: user.profileImage,
           }}
           onPost={handlePostSubmit}
           onClose={closeModal}
