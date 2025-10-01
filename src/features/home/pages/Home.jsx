@@ -56,19 +56,6 @@ export default function Home() {
             onFellingClick={() => openModal("feelings")}
           />
 
-          <div className="data">
-            <h1>Dashboard</h1>
-            {user ? (
-              <div>
-                <p>নাম: {user.name}</p>
-                <p>ইউজারনেম: {user.username}</p>
-                <p>ই-মেইল: {user.email}</p>
-              </div>
-            ) : (
-              <p>User data পাওয়া যায়নি।</p>
-            )}
-          </div>
-
           <InfiniteFeed />
         </section>
       </section>

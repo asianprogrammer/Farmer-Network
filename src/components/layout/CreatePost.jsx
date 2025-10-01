@@ -28,13 +28,13 @@ function CreatePost({
           <span>Photo/Video</span>
         </div>
 
-        <div
+        {/* <div
           className="flex F-center flex FY-center fellingPostOption"
           onClick={onFellingClick}
         >
           <div>😊</div>
           <span>Feeling/Activity</span>
-        </div>
+        </div> */}
       </section>
     </div>
   );
