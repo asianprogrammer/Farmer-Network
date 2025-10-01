@@ -28,6 +28,12 @@
   background: rgba(0, 0, 0, 0.438);
 }
 
+@media only screen and (max-width: 662px) {
+  .model {
+    width: 90% !important;
+  }
+}
+
 .scrollView {
   max-height: 60vh;
   overflow-y: auto;

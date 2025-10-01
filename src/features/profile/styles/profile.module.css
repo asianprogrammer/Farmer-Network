@@ -213,6 +213,7 @@
   background: var(--card);
   border: 1px solid var(--cardBorder);
   border-radius: var(--radius);
+  min-width: 10px;
 }
 
 .photos-grid {

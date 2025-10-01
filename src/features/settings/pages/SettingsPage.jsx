@@ -13,6 +13,10 @@ export default function SettingsPage() {
   const [profile, setProfile] = useState(null);
   const [formValues, setFormValues] = useState(null);
 
+  function loagout() {
+    localStorage.removeItem("accessToken");
+  }
+
   useEffect(() => {
     let alive = true;
 
@@ -83,7 +87,7 @@ export default function SettingsPage() {
 
       <div className="grid-2 mt-24">
         <Appearance />
-        <AccountActions onSignOut={() => console.log("sign out")} />
+        <AccountActions onSignOut={() => loagout} />
       </div>
     </div>
   );
