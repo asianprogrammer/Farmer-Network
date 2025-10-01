@@ -45,3 +45,5 @@ function TableViewPage() {
     </>
   );
 }
+
+export default TableViewPage;
